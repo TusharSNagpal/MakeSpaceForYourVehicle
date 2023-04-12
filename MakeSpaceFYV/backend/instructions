@@ -1,0 +1,12 @@
+npm install express cors mongoose dotenv
+express: web framework for Node.js assists in making code shorter and easier to write.
+cors: Cross-Origin Resource Sharing, AJAX requests
+mongoose: Node server to interact with MongoDB
+dotenv: to load environment variables to "process.env" file
+
+sudo npm install -g nodemon
+automatically starts the nodejs based application whenever any changes are done..
+
+nodemon server
+to run the server
+
