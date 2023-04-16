@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(express.raw({extended: false}));
 
 app.use('/api/properties', require('./routes/propertyRoute'))
+app.use('/api/owners', require('./routes/ownerRoutes'))
 
 app.use(errorHandler);
 
