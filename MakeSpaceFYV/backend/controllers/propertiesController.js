@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 
 const Property = require('../models/propertiesModel')
 
-// @desc GET properties
+// @desc GET properties..
 // @route GET /api/properties
 // @access Private
 const getProperty = asyncHandler(async (req,res) => {
