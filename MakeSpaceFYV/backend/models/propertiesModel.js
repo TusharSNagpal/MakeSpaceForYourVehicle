@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+//Schema
 const propertiesSchema = mongoose.Schema({
         owner_id: {
             type: Number,
