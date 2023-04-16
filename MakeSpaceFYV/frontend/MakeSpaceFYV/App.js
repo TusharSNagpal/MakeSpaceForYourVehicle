@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>MAKE SPACE FOR YOUR VEHICLE UNDER DEVELOPMENT!</Text>
+      <Text>MAKE SPACE FOR YOUR VEHICLE UNDER DEVELOPMENT!!</Text>
       <StatusBar style="auto" />
     </View>
   );
