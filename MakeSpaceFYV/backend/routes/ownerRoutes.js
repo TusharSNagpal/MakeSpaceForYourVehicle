@@ -4,6 +4,6 @@ const {registerOwner, loginOwner, getOwner} = require('../controllers/ownerContr
 
 router.post('/', registerOwner)
 router.post('/login', loginOwner)
-router.get('/get', getOwner)
+router.get('/getOwner', getOwner)
 
 module.exports = router
