@@ -16,8 +16,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.raw({extended: false}));
 
-app.use('/api/properties', require('./routes/propertyRoute'))
+app.use('/api/properties', require('./routes/propertyRoutes'))
 app.use('/api/owners', require('./routes/ownerRoutes'))
+app.use('/api/bookings', require('./routes/bookingRoutes'))
 
 app.use(errorHandler);
 
