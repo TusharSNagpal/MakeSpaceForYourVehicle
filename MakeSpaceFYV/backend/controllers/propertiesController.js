@@ -11,7 +11,7 @@ const getProperty = asyncHandler(async (req,res) => {
     res.status(200).json(properties)
 })
 
-const postProperty = asyncHandler(async (req,res) => {
+const registerProperty = asyncHandler(async (req,res) => {
     const paramsProperty = req.body
 
     const property = await Property.create({
@@ -25,17 +25,17 @@ const postProperty = asyncHandler(async (req,res) => {
     res.status(200).json(property)
 })
 
-const putProperty = asyncHandler(async (req,res) => { //:id is parameter
-    const property = await Property.findById(req.params.id)
+const updateProperty = asyncHandler(async (req,res) => { //:id is parameter
+    const property = await Property.findById(req.body.id)
 
     if(!property){
         res.status(400)
         throw new Error('Property not found!')
     }
 
-    const updatedProperty = await Property.findByIdAndUpdate(req.params.id, req.body, {new: true,})
+    const updatedProperty = await Property.findByIdAndUpdate(req.body.id, req.body, {new: true,})
 
-    res.status(200).json({id: `PUT Successful by: ${req.params.id}`})
+    res.status(200).json({id: `PUT Successful by: ${req.body.id}`})
 })
 
 const deleteProperty = asyncHandler(async (req,res) => { //:id is parameter
@@ -53,7 +53,7 @@ const deleteProperty = asyncHandler(async (req,res) => { //:id is parameter
 
 module.exports = {
     getProperty,
-    putProperty,
-    postProperty,
+    updateProperty,
+    registerProperty,
     deleteProperty
 }
