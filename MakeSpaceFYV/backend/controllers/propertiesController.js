@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Property = require('../models/propertiesModel')
+const Owner = require('../models/ownerModel')
 
 // @desc GET properties..
 // @route GET /api/properties
@@ -19,8 +20,6 @@ const registerProperty = asyncHandler(async (req,res) => {
         slots: paramsProperty.slots,
         prop_address: paramsProperty.prop_address
     })
-
-    console.log(req.body);
 
     res.status(200).json(property)
 })
