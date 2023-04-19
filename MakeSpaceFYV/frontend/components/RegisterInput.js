@@ -1,6 +1,6 @@
 import React from "react";
 
-import { View, Text, StyleSheet, TextInput, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TextInput, Button, ScrollView, TouchableOpacity } from "react-native";
 import { useState, useRef } from "react";
 
 const RegisterInput = (props) => {
@@ -31,6 +31,9 @@ const RegisterInput = (props) => {
   };
 
   return (
+    <View>
+      <Text style = {styles.headStyle}>Create a new account</Text>
+    {/* <Text> All fields are MANDATORY for submission of this form** </Text> */}
     <ScrollView>
       <TextInput
         style={styles.inputText}
@@ -70,19 +73,39 @@ const RegisterInput = (props) => {
         onChangeText={handleAgainPassChange}
         value={againPass}
       />
-      <Button title="REGISTER" onPress={props.onRegister.bind(this, name, phone, address, vehicle, password, againPass)} />
+      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} title="REGISTER" onPress={props.onRegister.bind(this, name, phone, address, vehicle, password, againPass)}><Text style = {styles.textStyle}>REGISTER</Text></TouchableOpacity>
     </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   inputText: {
-    margin: '5%',
+    margin: '3%',
     borderColor: "black",
     borderWidth: 1,
+    borderRadius: 15,
+    overflow: 'hidden',
     padding: 18,
-    width: '80%',
+    width: '90%',
   },
+  textStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 20,
+    overflow: 'hidden',
+    elevation: 3,
+    textAlign: 'center',
+    backgroundColor: '#1988da',
+    color: 'white'
+  },
+  headStyle: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: '3%',
+  }
 });
 
 export default RegisterInput;

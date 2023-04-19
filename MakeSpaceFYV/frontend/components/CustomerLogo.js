@@ -2,10 +2,10 @@ import React from 'react';
 
 import {View, StyleSheet, Image} from 'react-native';
 
-const ProfileImage = props => {
+const CustomerLogo = props => {
     return (
         <View>
-        <Image style={styles.profleLogo} source={require("../assets/profile.png")} />
+        <Image style={styles.profleLogo} source={require("../assets/customerLogo.png")} />
         </View>
     )
 };
@@ -14,10 +14,10 @@ const styles = StyleSheet.create({
     profleLogo: {
         marginTop: '10%',
         marginBottom: "10%",
-        width: 100,
-        height: 100,
+        width: 20,
+        height: 20,
         backgroundColor: '#1988da',
     },
 });
 
-export default ProfileImage;
+export default CustomerLogo;

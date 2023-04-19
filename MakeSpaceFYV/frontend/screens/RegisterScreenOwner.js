@@ -14,38 +14,34 @@ import {
 import { useState, useRef } from "react";
 
 //importing components:
-import LoginInput from "../components/LoginInput";
+import RegisterInput from "../components/RegisterInput";
 import ProfileImage from "../components/ProfileImage";
 import HeaderIn from "../components/HeaderIn";
 
 import * as variables from "../allVariables.js";
 
-const CustomerScreen = (props) => {
+const RegisterScreenOwner = (props) => {
   const [loading, setLoading] = useState(false);
-  const [auth, setAuth] = useState(false);
-  const [fail, setFail] = useState(false);
 
   return (
     <View style={styles.container}>
       {/* <HeaderIn /> */}
-      <Text>Welcome, {props.phone}!</Text>
-      
+      <RegisterInput onRegister={submitHandler}></RegisterInput>
+      {loading?
+        <ActivityIndicator size="small" color="#0000ff" />
+      :null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // paddingTop: "30%",
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
   subContainer: {
-    // flexDirection: "row",
     justifyContent: "center",
   },
 });
 
-export default CustomerScreen;
+export default RegisterScreenOwner;

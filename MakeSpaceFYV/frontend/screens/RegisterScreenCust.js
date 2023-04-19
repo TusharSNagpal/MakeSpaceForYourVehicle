@@ -89,7 +89,7 @@ const RegisterScreenCust = (props) => {
                 )
 
                 const redirect = () => {
-                    props.navigate.navigation("CUSTOMER LOGIN");
+                    navigation.goBack();
                 }
                 redirect();
             }
@@ -113,7 +113,7 @@ const RegisterScreenCust = (props) => {
 
   return (
     <View style={styles.container}>
-      <HeaderIn />
+      {/* <HeaderIn /> */}
       <RegisterInput onRegister={submitHandler}></RegisterInput>
       {loading?
         <ActivityIndicator size="small" color="#0000ff" />
@@ -126,6 +126,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   subContainer: {
     justifyContent: "center",
