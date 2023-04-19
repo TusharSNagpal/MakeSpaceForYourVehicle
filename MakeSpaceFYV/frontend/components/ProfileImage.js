@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         backgroundColor: '#1988da',
+        borderRadius: 60,
     },
 });
 
