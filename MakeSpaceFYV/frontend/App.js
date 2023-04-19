@@ -19,6 +19,7 @@ const Stack = createNativeStackNavigator();
 
 import LoginScreenCust from "./screens/LoginScreenCust";
 import RegisterScreenCust from "./screens/RegisterScreenCust";
+import Home from "./screens/Home";
 
 export default function App() {
   const [text, setText] = useState(
@@ -26,15 +27,17 @@ export default function App() {
   );
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name = 'CUSTOMER LOGIN' component = {LoginScreenCust} />
-        <Stack.Screen name = 'CUSTOMER REGISTRATION' component = {RegisterScreenCust} />
-        <Stack.Screen name = 'FIND PARKING SLOT' component = {RegisterScreenCust} />
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen name = 'HOME' component = {Home} />
+    //     <Stack.Screen name = 'CUSTOMER REGISTRATION' component = {RegisterScreenCust} />
+    //     <Stack.Screen name = 'FIND PARKING SLOT' component = {RegisterScreenCust} />
 
-      </Stack.Navigator>
-    </NavigationContainer>
-
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <View  style = {styles.container}>
+      <Home />
+    </View>
     // <View>
     //   <LoginScreen/>
     // </View>
@@ -44,7 +47,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     // paddingTop: '50%',
-    // flex: 1,
+    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

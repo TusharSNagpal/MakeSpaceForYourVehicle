@@ -10,7 +10,6 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
-  TouchableOpacity,
 } from "react-native";
 import { useState, useRef } from "react";
 
@@ -21,7 +20,7 @@ import HeaderIn from "../components/HeaderIn";
 
 import * as variables from "../allVariables.js";
 
-const LoginScreenCust = (props) => {
+const LoginScreenOwner = (props) => {
   const [loading, setLoading] = useState(false);
   const [auth, setAuth] = useState(false);
   const [fail, setFail] = useState(false);
@@ -48,7 +47,6 @@ const LoginScreenCust = (props) => {
       setLoading(false);
       console.log(response.status);
       if(response.status === 200){
-        props.navigation.navigate("FIND PARKING SLOT", {phone : {id}});
         setAuth(true);
         setFail(false);
       }
@@ -79,10 +77,9 @@ const LoginScreenCust = (props) => {
         <ActivityIndicator size="large" color="#0000ff" />
       :null}
       <Text>Don't have an account?</Text>
-      <TouchableOpacity title = 'REGISTER' onPress = {() => props.navigation.navigate("CUSTOMER REGISTRATION")} ><Text style = {styles.textStyle}>REGISTER</Text></TouchableOpacity>
-      <Text></Text>
+      <Button title = 'REGISTER' onPress = {() => props.navigation.navigate("CUSTOMER REGISTRATION")}/>
       <LoginInput onAuthReq={submitHandler}></LoginInput>
-      {/* {auth ? props.navigation.navigate("FIND PARKING SLOT", id):null} */}
+      {auth ? props.navigation.navigate("FIND PARKING SLOT", id):null}
     </View>
   );
 };
@@ -99,18 +96,6 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     justifyContent: "center",
   },
-  textStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 20,
-    overflow: 'hidden',
-    elevation: 3,
-    textAlign: 'center',
-    backgroundColor: '#1988da',
-    color: 'white',
-  }
 });
 
-export default LoginScreenCust;
+export default LoginScreenOwner;

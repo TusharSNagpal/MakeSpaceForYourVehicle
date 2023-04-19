@@ -2,10 +2,10 @@ import React from 'react';
 
 import {View, StyleSheet, Image} from 'react-native';
 
-const ProfileImage = props => {
+const CarLogo = props => {
     return (
         <View>
-        <Image style={styles.profleLogo} source={require("../assets/profile.png")} />
+        {/* <Image style={styles.profleLogo} source={require("../assets/car.png")} /> */}
         </View>
     )
 };
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProfileImage;
+export default CarLogo;
