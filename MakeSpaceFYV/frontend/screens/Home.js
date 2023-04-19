@@ -30,11 +30,12 @@ const Home = (props) => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <View style={styles.container}>
-      <HeaderIn />
+    <View >
+      <HeaderIn style={styles.container}/>
       <NavigationContainer >
         <Tab.Navigator screenOptions={{
           headerShown: false,
+          tabBarStyle: { height: '10%'},
         }}>
           <Tab.Screen name="CUSTOMER" component={CustomerStackScreen} options={{
           tabBarIcon: ({ color }) => (
@@ -46,14 +47,17 @@ const Home = (props) => {
           tabBarIcon: ({ color }) => (
             <OwnerLogo></OwnerLogo>
          ), 
+         
          tabBarLabel: 'OWNER'             
         }}/>
         </Tab.Navigator>
       </NavigationContainer>
-    </View>
+      </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {}
+});
 
 export default Home;

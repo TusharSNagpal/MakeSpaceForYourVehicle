@@ -77,10 +77,10 @@ const RegisterScreenCust = (props) => {
                 // setFail(false);
                 Alert.alert(
                     'REGISTRATION SUCCESSFUL',
-                    '',
+                    'LOGIN using these credentials',
                     [
                     {
-                        text: 'LOGIN using these credentials',
+                        text: 'OK',
                     },
                     ],
                     {
@@ -89,7 +89,7 @@ const RegisterScreenCust = (props) => {
                 )
 
                 const redirect = () => {
-                    navigation.goBack();
+                    props.navigation.goBack();
                 }
                 redirect();
             }

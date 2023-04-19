@@ -12,10 +12,10 @@ const CustomerLogo = props => {
 
 const styles = StyleSheet.create({
     profleLogo: {
-        marginTop: '10%',
+        marginTop: '12%',
         marginBottom: "10%",
-        width: 20,
-        height: 20,
+        width: 30,
+        height: 30,
         backgroundColor: '#1988da',
     },
 });

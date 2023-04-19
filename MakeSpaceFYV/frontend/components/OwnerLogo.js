@@ -12,10 +12,10 @@ const OwnerLogo = props => {
 
 const styles = StyleSheet.create({
     profleLogo: {
-        marginTop: '10%',
+        marginTop: '14%',
         marginBottom: "10%",
-        width: 30,
-        height: 30,
+        width: 50,
+        height: 50,
         backgroundColor: '#1988da',
     },
 });
