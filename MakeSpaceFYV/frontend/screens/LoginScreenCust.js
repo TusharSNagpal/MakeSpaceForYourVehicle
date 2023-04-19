@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     // flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   textStyle: {
     alignItems: 'center',
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#1988da',
     color: 'white',
+    marginTop: 20,
   }
 });
 

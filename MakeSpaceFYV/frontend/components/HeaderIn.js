@@ -2,12 +2,17 @@ import React from 'react'
 import { Text, View, Image, StyleSheet } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import CarLogo from './CarLogo'
+import { Dimensions } from "react-native";
+var width = Dimensions.get('window').width; //full width
 
 export default function HeaderIn() {
   return (
       <View style = {styles.headerStyle}>
-          <Text style = {styles.textStyle}>MAKE SPACE FOR YOUR VEHICLE</Text>
-          <CarLogo />
+        <View>
+          <Text style = {[styles.textStyle,  {paddingTop: '14%'}]}>MAKE SPACE</Text>
+          <Text style = {styles.textStyle}>FOR YOUR VEHICLE</Text>
+        </View>
+        <CarLogo/>
       </View>
   )
 }
@@ -16,16 +21,18 @@ const styles = StyleSheet.create({
   headerStyle: {
     // top: getStatusBarHeight(),
     backgroundColor: '#1988da',
-    width: 400,
-    height: '18%',
-    marginBottom: "5%",
+    width: width,
+    height: '15%',
+    // marginBottom: "5%",
+    flexDirection: "row",
   },
   textStyle: {
-    paddingTop: '13%',
-    fontSize: 20,
-    textAlign: 'center',
+    // paddingTop: '13%',
+    fontSize: 23,
+    // textAlign: 'center',
     color: '#fcfcfc',
     fontWeight: 'bold',
+    // fontFamily: 'Inter',
   },
   // image: {
   //   width: 24,
