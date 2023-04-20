@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
-const Owner = require('./ownerModel')
-Schema = mongoose.Schema
 //Schema
 const propertiesSchema = mongoose.Schema({
+        owner_id: {
+            type: String,
+            required: [true, 'Please add ownerId']
+        },
         slots: {
             type: Number,
             required: [true, 'Please add number of slots available in your property']
@@ -10,15 +12,7 @@ const propertiesSchema = mongoose.Schema({
         prop_address: {
             type: String,
             required: [true, 'Please add address of property']
-        },
-        owner_id: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'Owner'
         }
-    },
-    {
-        timestamps: true,
     }
 )
 

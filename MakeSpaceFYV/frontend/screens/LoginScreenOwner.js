@@ -43,12 +43,13 @@ const LoginScreenOwner = (props) => {
       },
       body: JSON.stringify(data),
     };
-    fetch(`${variables.API_CUST_LOGIN}`, options).then((response) => {
+    fetch(`${variables.API_OWNER_LOGIN}`, options).then((response) => {
       setLoading(false);
       console.log(response.status);
       if(response.status === 200){
         setAuth(true);
         setFail(false);
+        props.navigation.navigate("PARKING SLOTS")
       }
       else{
         setAuth(false);
@@ -77,9 +78,8 @@ const LoginScreenOwner = (props) => {
         <ActivityIndicator size="large" color="#0000ff" />
       :null}
       <Text>Don't have an account?</Text>
-      <Button title = 'REGISTER' onPress = {() => props.navigation.navigate("CUSTOMER REGISTRATION")}/>
+      <Button title = 'REGISTER' onPress = {() => props.navigation.navigate("OWNER REGISTRATION")}/>
       <LoginInput onAuthReq={submitHandler}></LoginInput>
-      {auth ? props.navigation.navigate("FIND PARKING SLOT", id):null}
     </View>
   );
 };

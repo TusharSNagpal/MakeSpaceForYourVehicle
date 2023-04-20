@@ -5,7 +5,7 @@ const { getProperty, registerProperty, updateProperty, deleteProperty } = requir
 
 router.post('/', registerProperty)
 
-router.get('/get', getProperty)
+router.get('/get/:owner_id', getProperty)
 
 router.put('/update', updateProperty)
 
