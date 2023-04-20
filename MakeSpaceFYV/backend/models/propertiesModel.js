@@ -16,14 +16,10 @@ const propertiesSchema = mongoose.Schema({
             required: [true, 'Please add pincode of property']
         },
         owner_id: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true,
-            ref: 'Owner'
         }
     },
-    {
-        timestamps: true,
-    }
 )
 
 module.exports = mongoose.model('Properties', propertiesSchema);

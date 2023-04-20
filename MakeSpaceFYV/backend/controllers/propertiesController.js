@@ -18,8 +18,7 @@ const getPropForCust = asyncHandler(async (req,res) => {
 })
 
 const getProperty = asyncHandler(async (req,res) => {
-    const properties = await Property.find()
-
+    const properties = await Property.find({owner_id: req.params.id})
     res.status(200).json(properties)
 })
 

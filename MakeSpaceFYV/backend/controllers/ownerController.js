@@ -46,7 +46,7 @@ const loginOwner = asyncHandler(async(req, res) => {
     const owner = await Owner.findOne({phone})
 
     if(owner && (await bcrypt.compare(password, owner.password))) {
-        res.json({
+        res.status(200).json({
             _id: owner.id,
             name: owner.name,
             phone: owner.phone,
@@ -59,7 +59,8 @@ const loginOwner = asyncHandler(async(req, res) => {
 })
 
 const getOwner = asyncHandler(async(req, res) => {
-    const {phone} = req.body
+    const phone = req.params.phone
+    console.log(phone)
     const owner = await Owner.findOne({phone})
 
     if(owner) {
