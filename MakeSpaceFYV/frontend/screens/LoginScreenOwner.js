@@ -10,6 +10,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  TouchableOpacity
 } from "react-native";
 import { useState, useRef } from "react";
 
@@ -43,12 +44,14 @@ const LoginScreenOwner = (props) => {
       },
       body: JSON.stringify(data),
     };
-    fetch(`${variables.API_CUST_LOGIN}`, options).then((response) => {
+    fetch(`${variables.API_OWNER_LOGIN}`, options).then((response) => {
       setLoading(false);
-      console.log(response.status);
       if(response.status === 200){
         setAuth(true);
         setFail(false);
+        
+        console.log(data)
+        props.navigation.navigate("PARKING SLOTS", {phone : userId})
       }
       else{
         setAuth(false);
@@ -77,9 +80,10 @@ const LoginScreenOwner = (props) => {
         <ActivityIndicator size="large" color="#0000ff" />
       :null}
       <Text>Don't have an account?</Text>
-      <Button title = 'REGISTER' onPress = {() => props.navigation.navigate("CUSTOMER REGISTRATION")}/>
+      {/* <Button title = 'REGISTER' onPress = {() => props.navigation.navigate("OWNER REGISTRATION")}/> */}
+      <TouchableOpacity title = 'REGISTER' onPress = {() => props.navigation.navigate("OWNER REGISTRATION")} ><Text style = {styles.textStyle}>REGISTER</Text></TouchableOpacity>
+      <Text></Text>
       <LoginInput onAuthReq={submitHandler}></LoginInput>
-      {auth ? props.navigation.navigate("FIND PARKING SLOT", id):null}
     </View>
   );
 };
@@ -96,6 +100,19 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     justifyContent: "center",
   },
+  textStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 20,
+    overflow: 'hidden',
+    elevation: 3,
+    textAlign: 'center',
+    backgroundColor: '#1988da',
+    color: 'white',
+    marginTop: 20,
+  }
 });
 
 export default LoginScreenOwner;

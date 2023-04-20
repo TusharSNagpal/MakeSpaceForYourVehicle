@@ -5,11 +5,11 @@ const { getProperty, registerProperty, updateProperty, deleteProperty, getPropFo
 
 router.post('/', registerProperty)
 
-router.get('/get', getProperty)
+router.get('/get/:id', getProperty)
 
 router.put('/update', updateProperty)
 
-router.delete('/delete', deleteProperty);
+router.delete('/delete/:id', deleteProperty);
 
 router.post('/getPropCust', getPropForCust)
 

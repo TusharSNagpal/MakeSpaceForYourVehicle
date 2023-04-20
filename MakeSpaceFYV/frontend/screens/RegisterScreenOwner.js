@@ -14,19 +14,52 @@ import {
 import { useState, useRef } from "react";
 
 //importing components:
-import RegisterInput from "../components/RegisterInput";
-import ProfileImage from "../components/ProfileImage";
-import HeaderIn from "../components/HeaderIn";
+import OwnerRegistration from "../components/OwnerRegistration";
 
-import * as variables from "../allVariables.js";
+const API_URL = 'http://172.16.139.132:5000/api/owners/';
 
 const RegisterScreenOwner = (props) => {
   const [loading, setLoading] = useState(false);
 
+  const submit = (name, phone, address, password) => {
+    const payload = {
+        name,
+        phone,
+        address,
+        password
+    };
+    fetch(`${API_URL}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
+    .then(async res => { 
+      const jsonRes = await res.json();
+      if (res.status == 201 || res.status == 200) {
+          const mess = 'Owner registered successfully!!'
+          Alert.alert('Owner', mess, [
+              {text: 'OK'},
+          ]); 
+          const redirect = () => {
+            props.navigation.goBack();
+          }
+          redirect();
+      } else {
+          Alert.alert('Owner', jsonRes.message, [
+              {text: 'OK'},
+          ]);
+          console.log('called')
+      }
+      console.log(res.status)
+
+    })
+  }
+
   return (
     <View style={styles.container}>
-      {/* <HeaderIn /> */}
-      <RegisterInput onRegister={submitHandler}></RegisterInput>
+      <OwnerRegistration onRegister={submit}/>
       {loading?
         <ActivityIndicator size="small" color="#0000ff" />
       :null}
@@ -37,7 +70,9 @@ const RegisterScreenOwner = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   subContainer: {
     justifyContent: "center",

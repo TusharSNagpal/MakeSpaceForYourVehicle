@@ -6,6 +6,7 @@ import RegisterScreenCust from "../../screens/RegisterScreenCust";
 import CustomerScreen from "../../screens/CustomerScreen";
 import RegisterScreenOwner from "../../screens/RegisterScreenOwner";
 import LoginScreenOwner from "../../screens/LoginScreenOwner";
+import PropertiesSCreen from "../../screens/PropertiesScreen";
 
 const OwnerStack = createNativeStackNavigator();
 
@@ -22,8 +23,8 @@ export default function OwnerStackScreen() {
         component={RegisterScreenOwner}
       />
       <OwnerStack.Screen
-        name="FIND PARKING SLOT"
-        component={CustomerScreen}
+        name="PARKING SLOTS"
+        component={PropertiesSCreen}
       />
     </OwnerStack.Navigator>
   );
