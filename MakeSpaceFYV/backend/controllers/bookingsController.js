@@ -12,6 +12,21 @@ const getBooking = asyncHandler(async (req,res) => {
     res.status(200).json(bookings)
 })
 
+const getOnGoingBooking = asyncHandler(async (req,res) => {
+    const bookings = await Booking.find({vehicle_reg_no: req.body.vehicle_reg_no, out_date: null});
+    if(bookings.length === 0){
+        res.status(400)
+        throw new Error('No such booking found!')
+    }
+    const curDate = new Date();
+    const inDate = new Date(bookings.in_date);
+
+    const timeDifference = curDate.getTime() - inDate.getTime();
+
+    let differentDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    res.status(200).json({...bookings, price: 50*differentDays});
+})
+
 const newBooking = asyncHandler(async (req,res) => {
     const paramsBooking = req.body
 
@@ -50,11 +65,12 @@ const goingOut = asyncHandler(async (req,res) => { //:id is parameter
 
     await Booking.findOneAndUpdate(filter, updatedBooking)
 
-    res.status(200).json({id: `Out Date updated Successfully`})
+    res.status(200).json({Sucess: "Done"})
 })
 
 module.exports = {
     getBooking,
     newBooking,
-    goingOut
+    goingOut,
+    getOnGoingBooking
 }

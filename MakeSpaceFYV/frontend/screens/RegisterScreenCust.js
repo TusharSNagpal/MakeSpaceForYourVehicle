@@ -23,7 +23,7 @@ import * as variables from "../allVariables.js";
 const RegisterScreenCust = (props) => {
   const [loading, setLoading] = useState(false);
 
-  const submitHandler = ( name, phone, address, vehicle, password, againPass) => {
+  const submitHandler = ( name, phone, address, pincode, vehicle, password, againPass) => {
     setLoading(true);
     if(againPass !== password){
         Alert.alert(
@@ -40,7 +40,7 @@ const RegisterScreenCust = (props) => {
           );
         setLoading(false);
     }
-    else if(name === '' || phone === '' || address === '' || vehicle === '' || password === ''){
+    else if(name === '' || phone === '' || address === '' || vehicle === '' || password === '' || pincode === ''){
         Alert.alert(
             'ALL FIELD ARE MANDATORY',
             '',
@@ -61,7 +61,8 @@ const RegisterScreenCust = (props) => {
             phone: phone,
             address: address,
             vehicle: vehicle,
-            password: password
+            password: password,
+            pincode: pincode
         };
         const options = {
         method: "POST",

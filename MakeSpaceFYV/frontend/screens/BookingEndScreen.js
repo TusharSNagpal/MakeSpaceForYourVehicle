@@ -19,33 +19,35 @@ import MapView from 'react-native-maps';
 import * as variables from "../allVariables";
 import { Card, ListItem, Icon } from 'react-native-elements'
 
-const BookingScreen = (props) => {
+const BookingEndScreen = (props) => {
   const [loading, setLoading] = useState(false);
   const [profileDetails, setProfileDetails] = useState(props.route.params.userData);
   const [fail, setFail] = useState(false);
-  const [slot, setSlot] = useState(props.route.params.slotDetails);
+  const [price, setPrice] = useState(props.route.params.price);
+  if(price === null)
+    setPrice(0);
 //   const userId = props.route.params.phone;
+useEffect(() => {
+    console.log(profileDetails);
+},[])
 
-  const handlePayment = () => {
+  const endPayment = () => {
     const data = {
-        prop_id: slot._id,
-        owner_id: slot.owner_id,
-        customer_id: profileDetails._id,
         vehicle_reg_no: profileDetails.vehicle,
       };
       const options = {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       };
-      fetch(`${variables.API_NEW_BOOKING}`, options).then((response)=>{
-        console.log(response);
-        if(response.status !== 200 && response.status !== 201){
+      fetch(`${variables.API_END_BOOKING}`, options).then((response)=>{
+        console.log(response.status);
+        if(response.status !== 200 && response.status !== 201 || response.status === 404){
           Alert.alert(
-            'No more slots left. Please see other parking locations in your area. Thanks!',
-            '',
+            'Payment Unsuccessful.',
+            'Due to Server Issue!',
             [
               {
                 text: 'OK',
@@ -53,28 +55,26 @@ const BookingScreen = (props) => {
             ],
             {
               cancelable: true,
-            //   onDismiss: () => props.navigation.go_back()
             },
           )
-          return response.json();
         }
         else{
-        Alert.alert(
-            'PAYMENT SUCCESSFUL. Thanks!',
-            '',
-            [
-            {
-                text: 'OK',
-            },
-            ],
-            {
-            cancelable: true,
-            //   onDismiss: () => props.navigation.navigate('BOOKING END', {userData: profileDetails, })
-            },
-        )
+            Alert.alert(
+                `Payment Successful on DATE: ${new Date()}. `,
+                'You can show this to security there. Thanks!',
+                [
+                  {
+                    text: 'OK',
+                  },
+                ],
+                {
+                  cancelable: true,
+                },
+              )
+              props.navigation.navigate("FIND PARKING SLOT", {phone : profileDetails.phone});
         }
-      })
-      
+     
+    })
   }
 
   return (
@@ -83,8 +83,7 @@ const BookingScreen = (props) => {
       <View style = {styles.subContainer}>
 
       <Card title="CARD WITH DIVIDER">
-        <Text style={[styles.textProp,{fontWeight: 'bold'}]}>Parking Address: {slot.prop_address}</Text>
-        <Text style={[styles.textProp,{fontWeight: 'bold'}]}>Confirm Details:</Text>
+        <Text style={[styles.textProp,{fontWeight: 'bold'}]}>On Going Booking:</Text>
         <Text style={styles.textProp}>Vehicle Number: {profileDetails.vehicle}</Text>
         <Text style={styles.textProp}>Phone Number: {profileDetails.phone}</Text>
 
@@ -92,11 +91,11 @@ const BookingScreen = (props) => {
         {/* </View> */}
       </Card>
       </View>
-      <Text style={styles.textProp}>Hurry Up! You may loose your slot..!</Text>
-      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress={(() => {handlePayment()})}><Text style = {{color: '#fcfcfc'}}>PAY $100</Text></TouchableOpacity>
+      <Text style={styles.textProp}>Please pay remaining amount to end the booking.</Text>
+      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress = {() => endPayment()}><Text style = {{color: '#fcfcfc'}}>PAY ${price}</Text></TouchableOpacity>
     </View>
-  )
-  };
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -150,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookingScreen;
+export default BookingEndScreen;

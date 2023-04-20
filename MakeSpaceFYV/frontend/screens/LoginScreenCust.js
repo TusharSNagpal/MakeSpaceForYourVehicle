@@ -45,12 +45,8 @@ const LoginScreenCust = (props) => {
     fetch(`${variables.API_CUST_LOGIN}`, options).then((response) => {
       setLoading(false);
       console.log(response.status);
-      if(response.status === 200){
-        props.navigation.navigate("FIND PARKING SLOT", {phone : userId});
-        setAuth(true);
-        setFail(false);
-      }
-      else{
+
+      if(response.status !== 200 && response.status !== 201){
         setAuth(false);
         Alert.alert(
           'Incorrect Phone Number/Password',
@@ -65,8 +61,44 @@ const LoginScreenCust = (props) => {
             onDismiss: () => setFail(true)
           },
         )
+        return -1;
       }
-    });
+      else
+        return response.json();
+    }).then((data) => {
+      if(data !== -1){
+        console.log(data);
+        const temp = {
+          vehicle_reg_no: data.vehicle
+        };
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(temp),
+        };
+
+        fetch(`${variables.API_CURR_BOOKING}`, options).then((response) => {
+          // console.log(data.vehicle);
+          console.log(response.status);
+          if(response.status !== 200 && response.status !== 201){
+            props.navigation.navigate("FIND PARKING SLOT", {phone : userId});
+            setAuth(true);
+            setFail(false);
+            return -1;
+          }
+
+          else 
+            return response.json();          
+        }).then((d1)=>{
+          if(d1!==-1){
+            console.log(d1['price']);
+            props.navigation.navigate("BOOKING END", {price : d1.price, userData: data});
+          }
+        })
+    }})
   };
 
   return (
