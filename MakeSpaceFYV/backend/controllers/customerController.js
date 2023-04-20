@@ -3,14 +3,14 @@ const asyncHandler = require('express-async-handler')
 const Customer = require('../models/customerModel')
 
 const registerCustomer = asyncHandler(async(req, res) => {
-    const {name, phone, address, vehicle, password, pincode} = req.body
+    const customerDetails = req.body;
 
-    if(!name || !phone || !address || !vehicle || !password || !pincode) {
+    if(!customerDetails.name || !customerDetails.phone || !customerDetails.address || !customerDetails.vehicle || !customerDetails.password || !customerDetails.pincode) {
         res.status(400)
         throw new Error('Please add all fields')
     }
-
-    const customerExists = await Customer.findOne({phone})
+    const phoneCheck = customerDetails.phone;
+    const customerExists = await Customer.findOne({phoneCheck})
 
     if(customerExists) {
         res.status(400)
@@ -18,15 +18,15 @@ const registerCustomer = asyncHandler(async(req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
+    const hashedPassword = await bcrypt.hash(customerDetails.password, salt)
 
     const customer = await Customer.create({
-        name,
-        phone,
-        address,
-        vehicle,
+        name: customerDetails.name,
+        phone: customerDetails.phone,
+        address: customerDetails.address,
+        vehicle: customerDetails.vehicle,
         password: hashedPassword,
-        pincode
+        pincode: customerDetails.pincode
     })
 
     if(customer) {

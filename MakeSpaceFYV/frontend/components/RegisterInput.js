@@ -83,7 +83,7 @@ const RegisterInput = (props) => {
         onChangeText={handleAgainPassChange}
         value={againPass}
       />
-      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} title="REGISTER" onPress={props.onRegister.bind(this, name, phone, address, vehicle, password, againPass)}><Text style = {styles.textStyle}>REGISTER</Text></TouchableOpacity>
+      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} title="REGISTER" onPress={props.onRegister.bind(this, name, phone, address, pincode, vehicle, password, againPass)}><Text style = {styles.textStyle}>REGISTER</Text></TouchableOpacity>
     </ScrollView>
     </View>
   );

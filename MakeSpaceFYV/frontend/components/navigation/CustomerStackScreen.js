@@ -5,6 +5,7 @@ import LoginScreenCust from "../../screens/LoginScreenCust";
 import RegisterScreenCust from "../../screens/RegisterScreenCust";
 import CustomerScreen from "../../screens/CustomerScreen";
 import BookingScreen from "../../screens/BookingScreen";
+import BookingEndScreen from "../../screens/BookingEndScreen";
 
 const CustomerStack = createNativeStackNavigator();
 
@@ -27,6 +28,10 @@ export default function CustomerStackScreen() {
       <CustomerStack.Screen
         name="BOOKING SLOT"
         component={BookingScreen}
+      />
+      <CustomerStack.Screen
+        name="BOOKING END"
+        component={BookingEndScreen}
       />
     </CustomerStack.Navigator>
   );

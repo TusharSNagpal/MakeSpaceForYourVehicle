@@ -26,6 +26,9 @@ const CustomerScreen = (props) => {
   const [properties, setProperties] = useState([]);
   const userId = props.route.params.phone;
 
+  const [show, setShow] = useState(true);
+  const [booking, setBooking] = useState([booking, setBooking]);
+
   useEffect(() => {
     const data = {
       phone: userId
@@ -61,7 +64,7 @@ const CustomerScreen = (props) => {
       return data;
     })
     .then((d) => {
-      // console.log(d.pincode);
+      console.log(d.pincode);
       const data = {
         pincode: d.pincode
       };
@@ -103,11 +106,13 @@ const CustomerScreen = (props) => {
       <Text style={styles.textStyle}>Welcome, {profileDetails?.name}!</Text>
       {/* <MapView style={styles.map} /> */}
 
-      <Card title="CARD WITH DIVIDER">
+    <ScrollView>
+      
     {
       properties.map((data) => {
         return (
           <View>
+            <Card title="CARD WITH DIVIDER">
             {/* <Image
               style={styles.image}
               resizeMode="cover"
@@ -118,12 +123,13 @@ const CustomerScreen = (props) => {
               <Text style={styles.textProp}>Slots: {data.slots}</Text>
               <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress = {() => {props.navigation.navigate('BOOKING SLOT', {userData: profileDetails, slotDetails: data})}}><Text style = {{color: '#fcfcfc'}}>BOOK</Text></TouchableOpacity>
             </View>
-
+            </Card>
           </View>
         );
       })
     }
-</Card>
+
+  </ScrollView>
 
     </View>
   );
