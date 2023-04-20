@@ -4,6 +4,6 @@ const {registerCustomer, loginCustomer, getCustomer} = require('../controllers/c
 
 router.post('/', registerCustomer)
 router.post('/login', loginCustomer)
-router.get('/getCustomer', getCustomer)
+router.post('/getCustomer', getCustomer)
 
 module.exports = router

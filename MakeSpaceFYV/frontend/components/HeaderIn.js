@@ -1,18 +1,20 @@
 import React from 'react'
 import { Text, View, Image, StyleSheet } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import CarLogo from './CarLogo'
+import AppLogo from './AppLogo'
 import { Dimensions } from "react-native";
+// import { useFonts, Sacramento_400Regular } from '@expo-google-fonts/sacramento'
+
 var width = Dimensions.get('window').width; //full width
 
 export default function HeaderIn() {
+
   return (
       <View style = {styles.headerStyle}>
+        <AppLogo/>
         <View>
-          <Text style = {[styles.textStyle,  {paddingTop: '14%'}]}>MAKE SPACE</Text>
-          <Text style = {styles.textStyle}>FOR YOUR VEHICLE</Text>
+          <Text style = {[styles.textStyle,  {paddingTop: '6%'}]}>AutoSpot</Text>
         </View>
-        <CarLogo/>
       </View>
   )
 }
@@ -22,9 +24,11 @@ const styles = StyleSheet.create({
     // top: getStatusBarHeight(),
     backgroundColor: '#1988da',
     width: width,
-    height: '15%',
+    // height: '13%',
     // marginBottom: "5%",
     flexDirection: "row",
+    // justifyContent: 'center',
+
   },
   textStyle: {
     // paddingTop: '13%',
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
     // textAlign: 'center',
     color: '#fcfcfc',
     fontWeight: 'bold',
-    // fontFamily: 'Inter',
+    // fontFamily: 'Satisfy_500Medium',
   },
   // image: {
   //   width: 24,

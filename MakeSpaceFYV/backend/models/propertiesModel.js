@@ -11,6 +11,10 @@ const propertiesSchema = mongoose.Schema({
             type: String,
             required: [true, 'Please add address of property']
         },
+        pincode: {
+            type: String,
+            required: [true, 'Please add pincode of property']
+        },
         owner_id: {
             type: Schema.Types.ObjectId,
             required: true,

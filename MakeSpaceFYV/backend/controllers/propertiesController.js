@@ -6,6 +6,17 @@ const Owner = require('../models/ownerModel')
 // @desc GET properties..
 // @route GET /api/properties
 // @access Private
+
+const getPropForCust = asyncHandler(async (req,res) => {
+    const custPincode = req.body.pincode;
+
+    const properties = await Property.find({pincode: custPincode})
+
+    const updatedProperties = properties.filter(property => property.slots>0)
+
+    res.status(200).json(updatedProperties)
+})
+
 const getProperty = asyncHandler(async (req,res) => {
     const properties = await Property.find()
 
@@ -18,7 +29,8 @@ const registerProperty = asyncHandler(async (req,res) => {
     const property = await Property.create({
         owner_id: paramsProperty.owner_id,
         slots: paramsProperty.slots,
-        prop_address: paramsProperty.prop_address
+        prop_address: paramsProperty.prop_address,
+        pincode: paramsProperty.pincode
     })
 
     res.status(200).json(property)
@@ -54,5 +66,6 @@ module.exports = {
     getProperty,
     updateProperty,
     registerProperty,
-    deleteProperty
+    deleteProperty,
+    getPropForCust
 }

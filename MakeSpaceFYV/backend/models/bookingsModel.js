@@ -2,11 +2,15 @@ const mongoose = require('mongoose')
 
 const bookingsSchema = mongoose.Schema({
         owner_id: {
-            type: Number,
+            type: String,
             required: [true, 'Please add ownerId']
         },
+        prop_id: {
+            type: String,
+            required: [true, 'Please add propId']
+        },
         customer_id: {
-            type: Number,
+            type: String,
             required: [true, 'Please add customerId']
         },
         vehicle_reg_no: {

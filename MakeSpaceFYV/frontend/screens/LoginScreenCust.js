@@ -25,11 +25,9 @@ const LoginScreenCust = (props) => {
   const [loading, setLoading] = useState(false);
   const [auth, setAuth] = useState(false);
   const [fail, setFail] = useState(false);
-  const [id, setId] = useState('');
 
   const submitHandler = (userId, password) => {
     setAuth(false);
-    setId(userId);
     setLoading(true);
     console.log(userId);
     console.log(password);
@@ -48,7 +46,7 @@ const LoginScreenCust = (props) => {
       setLoading(false);
       console.log(response.status);
       if(response.status === 200){
-        props.navigation.navigate("FIND PARKING SLOT", {phone : {id}});
+        props.navigation.navigate("FIND PARKING SLOT", {phone : userId});
         setAuth(true);
         setFail(false);
       }

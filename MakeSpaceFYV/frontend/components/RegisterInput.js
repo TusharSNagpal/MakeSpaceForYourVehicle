@@ -10,6 +10,7 @@ const RegisterInput = (props) => {
   const [vehicle, setVehicle] = useState('');
   const [password, setPassword] = useState('');
   const [againPass, setAgainPass] = useState('');
+  const [pincode, setPincode] = useState('');
 
   const handleNameChange = (text) => {
     setName(text);
@@ -19,6 +20,9 @@ const RegisterInput = (props) => {
   }
   const handleAddressChange = (text) => {
     setAddress(text);
+  };
+  const handlePincodeChange = (text) => {
+    setPincode(text);
   };
   const handleVehicleChange = (text) => {
     setVehicle(text);
@@ -32,7 +36,7 @@ const RegisterInput = (props) => {
 
   return (
     <View>
-      <Text style = {styles.headStyle}>Create a new account</Text>
+      <Text style = {styles.headStyle}>CREATE A NEW ACCOUNT</Text>
     {/* <Text> All fields are MANDATORY for submission of this form** </Text> */}
     <ScrollView>
       <TextInput
@@ -46,6 +50,12 @@ const RegisterInput = (props) => {
         placeholder="ENTER ADDRESS"
         onChangeText={handleAddressChange}
         value={address}
+      />
+      <TextInput
+        style={styles.inputText}
+        placeholder="ENTER PINCODE"
+        onChangeText={handlePincodeChange}
+        value={pincode}
       />
       <TextInput
         style={styles.inputText}
@@ -104,7 +114,10 @@ const styles = StyleSheet.create({
   headStyle: {
     fontSize: 20,
     textAlign: 'center',
+    marginTop: '2%',
     marginBottom: '3%',
+    color: '#1988da',
+    fontWeight: 'bold',
   }
 });
 

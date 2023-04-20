@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Booking = require('../models/bookingsModel')
+const Property = require('../models/propertiesModel')
 
 // @desc GET properties..
 // @route GET /api/properties
@@ -15,12 +16,21 @@ const newBooking = asyncHandler(async (req,res) => {
     const paramsBooking = req.body
 
     const booking = await Booking.create({
+        prop_id: paramsBooking.prop_id,
         owner_id: paramsBooking.owner_id,
         customer_id: paramsBooking.customer_id,
         vehicle_reg_no: paramsBooking.vehicle_reg_no,
         in_date: new Date(),
         out_date: null
     })
+
+    const property = await Property.findById(paramsBooking.prop_id);
+
+    if(property.slots === 0){
+        res.status(400)
+        throw new Error('No more slots available!')
+    }
+    const updatedProperty = await Property.findByIdAndUpdate(paramsBooking.prop_id, {slots: property.slots-1}, {new: true,})
 
     // console.log(req.body);
 

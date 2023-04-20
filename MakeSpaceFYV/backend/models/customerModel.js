@@ -14,6 +14,10 @@ const customerSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add your address']
     },
+    pincode: {
+        type: String,
+        required: [true, 'Please add your address pincode']
+    },
     vehicle: {
         type: String,
         required: [true, 'Please add a vehicle number']
