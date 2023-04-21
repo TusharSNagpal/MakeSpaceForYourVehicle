@@ -25,5 +25,5 @@ EXPOSE 19006 19000
 # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin"]
 # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools"]
 # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/emulator"]
-ENTRYPOINT ["npm", "run"]
-CMD ["web"]
+
+CMD ["npm", "run", "web"]
