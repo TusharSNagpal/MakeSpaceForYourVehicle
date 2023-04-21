@@ -20,4 +20,5 @@ COPY . .
 EXPOSE 19000
 
 # Start the React applications
+CMD ["read", "-p", "Press enter to continue"]
 CMD ["npx", "expo", "start"]
