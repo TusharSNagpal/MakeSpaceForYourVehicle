@@ -9,7 +9,7 @@
         source: pull
     - name: DOCKER CREATE
       docker_container:
-        name: spe-mini-proj
+        name: spe-major-proj
         image: tusharsnagpal/make-space-for-your-vehicle-frontend
         state: started
         tty: yes
