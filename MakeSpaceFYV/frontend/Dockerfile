@@ -20,9 +20,10 @@ COPY . .
 EXPOSE 19000
 
 # Start the React applications
-CMD ["read", "-p", "Press enter to continue"]
-CMD ["export", "ANDROID_SDK_ROOT=$HOME/Android/Sdk"]
-CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin"]
-CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools"]
-CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/emulator"]
-CMD ["npx", "expo", "start"]
+# CMD ["read", "-p", "Press enter to continue"]
+# CMD ["export", "ANDROID_SDK_ROOT=$HOME/Android/Sdk"]
+# CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin"]
+# CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools"]
+# CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/emulator"]
+ENTRYPOINT ["npm", "run"]
+CMD ["web"]
