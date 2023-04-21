@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, StyleSheet, TextInput , Text, Alert} from "react-native";
 // import Parse from "parse/react-native";
 
-const API_URL = 'http://172.16.139.132:5000/api/owners/';
+const API_URL = 'http://172.16.132.90:500/api/owners/';
 
 const OwnerRegistration = (props) => {
   const [name, setName] = useState("");

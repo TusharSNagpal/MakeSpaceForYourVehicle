@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {View, StyleSheet, Image} from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 const AppLogo = props => {
     return (
@@ -12,7 +13,7 @@ const AppLogo = props => {
 
 const styles = StyleSheet.create({
     profleLogo: {
-        marginTop: '40%',
+        marginTop: getStatusBarHeight(),
         // marginBottom: "10%",
         position: 'relative',
         // borderRadius: 20,

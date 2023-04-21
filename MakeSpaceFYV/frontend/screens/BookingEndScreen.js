@@ -11,8 +11,9 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MapView from 'react-native-maps';
 
 //importing components:
@@ -24,12 +25,48 @@ const BookingEndScreen = (props) => {
   const [profileDetails, setProfileDetails] = useState(props.route.params.userData);
   const [fail, setFail] = useState(false);
   const [price, setPrice] = useState(props.route.params.price);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   if(price === null)
     setPrice(0);
 //   const userId = props.route.params.phone;
-useEffect(() => {
-    console.log(profileDetails);
-},[])
+  useEffect(() => {
+    const temp = {
+      vehicle_reg_no: profileDetails.vehicle
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(temp),
+    };
+
+    fetch(`${variables.API_CURR_BOOKING}`, options).then((response) => {
+      // console.log(data.vehicle);
+      console.log(response.status);
+      if(response.status !== 200 && response.status !== 201){
+        return -1;
+      }
+
+      else 
+        return response.json();          
+    }).then((d1)=>{
+      if(d1!==-1){
+        setPrice(d1.price);
+      }
+      setLoading(false);
+    })
+  },[refreshing])
 
   const endPayment = () => {
     const data = {
@@ -73,15 +110,21 @@ useEffect(() => {
               )
               props.navigation.navigate("FIND PARKING SLOT", {phone : profileDetails.phone});
         }
-     
+     setLoading(false);
     })
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.textStyle}>Welcome, {profileDetails?.name}!</Text>
-      <View style = {styles.subContainer}>
 
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <Text style={styles.textProp}>Pull down to refresh price!</Text>
+      <View style = {styles.subContainer}>
       <Card title="CARD WITH DIVIDER">
         <Text style={[styles.textProp,{fontWeight: 'bold'}]}>On Going Booking:</Text>
         <Text style={styles.textProp}>Vehicle Number: {profileDetails.vehicle}</Text>
@@ -92,7 +135,11 @@ useEffect(() => {
       </Card>
       </View>
       <Text style={styles.textProp}>Please pay remaining amount to end the booking.</Text>
-      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress = {() => endPayment()}><Text style = {{color: '#fcfcfc'}}>PAY ${price}</Text></TouchableOpacity>
+      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress = {() => {setLoading(true); endPayment();}}><Text style = {{color: '#fcfcfc'}}>PAY ${price}</Text></TouchableOpacity>
+      {loading?
+        <ActivityIndicator size="large" color="#0000ff" />
+      :null}
+      </ScrollView>
     </View>
   );
 }

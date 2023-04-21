@@ -43,7 +43,6 @@ const LoginScreenCust = (props) => {
       body: JSON.stringify(data),
     };
     fetch(`${variables.API_CUST_LOGIN}`, options).then((response) => {
-      setLoading(false);
       console.log(response.status);
 
       if(response.status !== 200 && response.status !== 201){
@@ -94,9 +93,10 @@ const LoginScreenCust = (props) => {
             return response.json();          
         }).then((d1)=>{
           if(d1!==-1){
-            console.log(d1['price']);
+            console.log(d1);
             props.navigation.navigate("BOOKING END", {price : d1.price, userData: data});
           }
+          setLoading(false);
         })
     }})
   };

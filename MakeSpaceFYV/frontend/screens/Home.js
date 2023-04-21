@@ -35,7 +35,7 @@ const Home = (props) => {
       <NavigationContainer >
         <Tab.Navigator screenOptions={{
           headerShown: false,
-          tabBarStyle: { height: '10%'},
+          tabBarStyle: { height: '9%'},
         }}>
           <Tab.Screen name="CUSTOMER" component={CustomerStackScreen} options={{
           tabBarIcon: ({ color }) => (

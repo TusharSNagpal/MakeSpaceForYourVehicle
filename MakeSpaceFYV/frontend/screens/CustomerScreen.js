@@ -11,8 +11,9 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MapView from 'react-native-maps';
 
 //importing components:
@@ -20,7 +21,7 @@ import * as variables from "../allVariables";
 import { Card, ListItem, Icon } from 'react-native-elements'
 
 const CustomerScreen = (props) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [profileDetails, setProfileDetails] = useState();
   const [fail, setFail] = useState(false);
   const [properties, setProperties] = useState([]);
@@ -96,18 +97,33 @@ const CustomerScreen = (props) => {
       }).then(data => {
         // console.log(data);
         setProperties(data);
+        setLoading(false);
       })
   })
   }, [])
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   return (
     <View style={styles.container}>
       {/* <HeaderIn /> */}
       <Text style={styles.textStyle}>Welcome, {profileDetails?.name}!</Text>
       {/* <MapView style={styles.map} /> */}
-
-    <ScrollView>
-      
+      {loading?
+        <ActivityIndicator size="large" color="#0000ff" />
+      :null}
+    <ScrollView 
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
     {
       properties.map((data) => {
         return (

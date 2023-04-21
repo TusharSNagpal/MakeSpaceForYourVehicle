@@ -53,7 +53,7 @@ const BookingScreen = (props) => {
             ],
             {
               cancelable: true,
-            //   onDismiss: () => props.navigation.go_back()
+              // onDismiss: () => props.navigation.go_back()
             },
           )
           return response.json();
@@ -65,14 +65,49 @@ const BookingScreen = (props) => {
             [
             {
                 text: 'OK',
+                onPress: () => {
+                  console.log("Hi");
+                  const temp = {
+                    vehicle_reg_no: profileDetails.vehicle
+                  };
+          
+                  const options = {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(temp),
+                  };
+
+                  fetch(`${variables.API_CURR_BOOKING}`, options).then((response) => {
+                    // console.log(data.vehicle);
+                    console.log(response.status);
+                    if(response.status !== 200 && response.status !== 201){
+                      props.navigation.navigate("FIND PARKING SLOT", {phone : userId});
+                      setAuth(true);
+                      setFail(false);
+                      return -1;
+                    }
+          
+                    else 
+                      return response.json();          
+                  }).then((d1)=>{
+                    if(d1!==-1){
+                      console.log(d1['price']);
+                      props.navigation.navigate("BOOKING END", {price : d1.price, userData: profileDetails});
+                    }
+                    setLoading(false);
+                    // props.navigation.navigate('BOOKING END', {userData: profileDetails, })
+                  })
+              }
             },
             ],
             {
             cancelable: true,
-            //   onDismiss: () => props.navigation.navigate('BOOKING END', {userData: profileDetails, })
             },
         )
         }
+        setLoading(false);
       })
       
   }
@@ -93,7 +128,10 @@ const BookingScreen = (props) => {
       </Card>
       </View>
       <Text style={styles.textProp}>Hurry Up! You may loose your slot..!</Text>
-      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress={(() => {handlePayment()})}><Text style = {{color: '#fcfcfc'}}>PAY $100</Text></TouchableOpacity>
+      <TouchableOpacity activeOpacity = {0.5} style = {styles.buttonStyle} onPress={(() => {setLoading(true); handlePayment()})}><Text style = {{color: '#fcfcfc'}}>PAY $100</Text></TouchableOpacity>
+      {loading?
+        <ActivityIndicator size="large" color="#0000ff" />
+      :null}
     </View>
   )
   };
