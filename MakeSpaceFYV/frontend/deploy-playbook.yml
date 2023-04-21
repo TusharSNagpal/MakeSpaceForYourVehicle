@@ -1,0 +1,16 @@
+---
+- name: Pull docker image
+  hosts: all
+  tasks:
+    - name: IMAGE PULL FROM DOCKER HUB
+      docker_image:
+        name: tusharsnagpal/make-space-for-your-vehicle-frontend
+        tag: latest
+        source: pull
+    - name: DOCKER CREATE
+      docker_container:
+        name: spe-mini-proj
+        image: tusharsnagpal/make-space-for-your-vehicle-frontend
+        state: started
+        tty: yes
+        interactive: yes
