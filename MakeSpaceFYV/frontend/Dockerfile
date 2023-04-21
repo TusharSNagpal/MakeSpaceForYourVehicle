@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Expose port 3000 on the host machine to the container for listening to external connections
-EXPOSE 3000
+EXPOSE 19000
 
 # Start the React applications
 CMD ["npx", "expo", "start"]
