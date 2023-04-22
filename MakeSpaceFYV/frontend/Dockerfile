@@ -26,4 +26,4 @@ CMD ["read", "-p", "Press enter to continue"]
 # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools"]
 # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/emulator"]
 
-CMD ["npm", "run", "web"]
+CMD ["npx", "expo", "start"]
