@@ -4,8 +4,8 @@
   "description": "Make Space For Your Vehicle",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "TusharSNagpal, Gaurav Tilokani",
   "license": "MIT",
