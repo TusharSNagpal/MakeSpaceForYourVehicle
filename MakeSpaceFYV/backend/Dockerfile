@@ -17,6 +17,6 @@ RUN npm install
 COPY . .
 
 # Expose port 3001 on the host machine to the container for listening to external connections
-EXPOSE 3001
+EXPOSE 5001
 
 CMD ["npm", "run", "server"]
