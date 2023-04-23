@@ -1,16 +1,10 @@
 ---
-- name: Pull docker image
+- name: Kubernetes
   hosts: all
   tasks:
-    - name: IMAGE PULL FROM DOCKER HUB
-      docker_image:
-        name: tusharsnagpal/make-space-for-your-vehicle-frontend
-        tag: latest
-        source: pull
-    - name: DOCKER CREATE
-      docker_container:
-        name: spe-major-proj
-        image: tusharsnagpal/make-space-for-your-vehicle-frontend
-        state: started
-        tty: yes
-        interactive: yes
+    - name: Kubernetes
+      become: true
+      copy:
+        src: ./kubernetes
+        dest: ./
+        mode: 0644

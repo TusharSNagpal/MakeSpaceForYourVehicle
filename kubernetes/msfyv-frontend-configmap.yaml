@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: msfyv-frontend-configmap
+data:
+    REACT_NATIVE_URL: msfyv-frontend-service
+    BACKEND_URL: msfyv-backend-service

@@ -42,6 +42,7 @@ const LoginScreenCust = (props) => {
       },
       body: JSON.stringify(data),
     };
+    // console.log(variables.API_CUST_LOGIN);
     fetch(`${variables.API_CUST_LOGIN}`, options).then((response) => {
       console.log(response.status);
 
