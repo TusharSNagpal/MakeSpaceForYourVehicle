@@ -1,6 +1,6 @@
 ---
 - name: Kubernetes
-  hosts: all
+  hosts: one
   tasks:
     - name: Kubernetes
       become: true
