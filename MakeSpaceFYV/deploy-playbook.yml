@@ -1,10 +1,12 @@
 ---
-- name: Kubernetes
-  hosts: all
+- name: Kubernetes Copy using Ansible
+  hosts: one
   tasks:
-    - name: Kubernetes
+    - name: kubernetes copy
       become: true
       copy:
         src: ./kubernetes
         dest: ./
+        owner: ansible_usr
+        group: ansible_usr
         mode: 0644
