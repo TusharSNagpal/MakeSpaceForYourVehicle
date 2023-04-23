@@ -27,11 +27,9 @@ kind: Service
 metadata:
   name: msfyv-backend-service
 spec:
-  type: LoadBalancer
   selector:
     app: msfyv-backend
   ports:
   - name: http
     port: 5001
     targetPort: 5001
-    nodePort: 30000
