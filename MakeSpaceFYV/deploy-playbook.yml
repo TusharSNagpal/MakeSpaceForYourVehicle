@@ -16,7 +16,7 @@
       command: kubectl apply -f kubernetes/msfyv-backend-secret.yaml
     - name: Apply backend
       command: kubectl apply -f kubernetes/msfyv-backend.yaml
-    # - name: Host IP
-    #   command: export my_ip=$(ip route get 8.8.8.8 | awk '{ print $7; exit }')
+    - name: Service
+      command: minikube service msfyv-backend-service
     - name: Port Forwarding Backend
-      command: kubectl port-forward --address localhost,172.16.132.90 service/msfyv-backend-service 5001:5001
+      command: "kubectl port-forward --address localhost,{{ansible_ssh_host}} service/msfyv-backend-service 5001:5001"

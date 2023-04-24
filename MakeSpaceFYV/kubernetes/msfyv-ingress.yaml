@@ -6,7 +6,7 @@ metadata:
     name: msfyv-ingress
 spec:
   rules:
-  - host: msfyv.com
+  - host: 172.16.132.90
     http:
       paths:
       - pathType: Prefix
