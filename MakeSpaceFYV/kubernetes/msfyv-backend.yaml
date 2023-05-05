@@ -17,7 +17,7 @@ spec:
         image: tusharsnagpal/make-space-for-your-vehicle-backend
         ports:
         - name: http
-          containerPort: 5001
+          containerPort: 5000
         envFrom:
         - secretRef:
             name: msfyv-backend-secret
@@ -31,5 +31,5 @@ spec:
     app: msfyv-backend
   ports:
   - name: http
-    port: 5001
-    targetPort: 5001
+    port: 5000
+    targetPort: 5000
