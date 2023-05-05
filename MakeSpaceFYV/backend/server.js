@@ -41,10 +41,10 @@ mongoDB().then(() => {
     logger.error(`Failed to connect to MongoDB: ${error.message}`)
 });
 
-if (process.env.NODE_ENV === 'production')
-	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data', {
-		stream: fs.createWriteStream('./backend/logs/access.log', {flags: 'a'})
-	}))
+// if (process.env.NODE_ENV === 'production')
+// 	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data', {
+// 		stream: fs.createWriteStream('./backend/logs/access.log', {flags: 'a'})
+// 	}))
 // if (process.env.NODE_ENV === 'production')
 // 	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data'))
 
