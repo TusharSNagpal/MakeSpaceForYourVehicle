@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msfyv-frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: msfyv-frontend
+  template:
+    metadata:
+      labels:
+        app: msfyv-frontend
+    spec:
+      containers:
+      - name: msfyv-frontend
+        image: tusharsnagpal/make-space-for-your-vehicle-frontend
+        ports:
+        - containerPort: 19000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: msfyv-frontend-service
+spec:
+  selector:
+    app: msfyv-frontend
+  ports:
+  - name: http
+    port: 19000
+    targetPort: 19000

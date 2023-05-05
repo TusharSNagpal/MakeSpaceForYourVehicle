@@ -1,16 +1,26 @@
 ---
-- name: Pull docker image
-  hosts: all
+- name: Kubernetes Copy using Ansible
+  hosts: one
   tasks:
-    - name: IMAGE PULL FROM DOCKER HUB
-      docker_image:
-        name: tusharsnagpal/make-space-for-your-vehicle-frontend
-        tag: latest
-        source: pull
-    - name: DOCKER CREATE
-      docker_container:
-        name: spe-major-proj
-        image: tusharsnagpal/make-space-for-your-vehicle-frontend
-        state: started
-        tty: yes
-        interactive: yes
+    - name: kubernetes copy
+      become: true
+      copy:
+        src: ./kubernetes
+        dest: ./
+        owner: ansible_usr
+        group: ansible_usr
+        mode: 0644
+    - name: Minikube
+      command: minikube start
+    - name: Apply backend secret file
+      command: kubectl apply -f kubernetes/msfyv-backend-secret.yaml
+    - name: Apply backend
+      command: kubectl apply -f kubernetes/msfyv-backend.yaml
+    - name: Service
+      command: minikube service msfyv-backend-service
+    - name: Apply frontend configmap
+      command: kubectl apply -f kubernetes/msfyv-frontend-configmap.yaml
+    - name: Frontend Service
+      command: kubectl apply -f kubernetes/msfyv-frontend.yaml
+    - name: Execute the script
+      script: kubernetes/test.sh
