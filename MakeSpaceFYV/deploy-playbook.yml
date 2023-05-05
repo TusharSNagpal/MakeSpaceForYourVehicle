@@ -10,6 +10,8 @@
         owner: ansible_usr
         group: ansible_usr
         mode: 0644
+    - name: Minikube Delete
+      command: minikube delete
     - name: Minikube
       command: minikube start
     - name: Apply backend secret file
