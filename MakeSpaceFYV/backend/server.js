@@ -25,8 +25,12 @@ app.use('/api/customers', require('./routes/customerRoutes'))
 
 app.use(errorHandler);
 
-mongoDB();
-
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+mongoDB().then(() => {
+    console.log('Successfully connected to MongoDB')
+})
+.catch((error) => {
+    console.log(`Failed to connect to MongoDB: ${error.message}`)
 });
+
+
+module.exports = app
