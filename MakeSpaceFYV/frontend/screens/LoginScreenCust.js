@@ -12,7 +12,7 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 //importing components:
 import LoginInput from "../components/LoginInput";
@@ -42,6 +42,7 @@ const LoginScreenCust = (props) => {
       },
       body: JSON.stringify(data),
     };
+    // console.log(variables.API_CUST_LOGIN);
     fetch(`${variables.API_CUST_LOGIN}`, options).then((response) => {
       console.log(response.status);
 

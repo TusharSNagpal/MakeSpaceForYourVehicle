@@ -25,6 +25,11 @@ const getProperty = asyncHandler(async (req,res) => {
 const registerProperty = asyncHandler(async (req,res) => {
     const paramsProperty = req.body
 
+    if(paramsProperty.owner_id === '' || paramsProperty.slots === '' || paramsProperty.prop_address === '' || paramsProperty.pincode === ''){
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
+
     const property = await Property.create({
         owner_id: paramsProperty.owner_id,
         slots: paramsProperty.slots,
