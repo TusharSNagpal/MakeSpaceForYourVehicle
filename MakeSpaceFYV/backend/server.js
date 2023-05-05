@@ -1,7 +1,9 @@
 const express = require('express');
 const colors = require('colors')
 const cors = require('cors');
-
+const morgan = require('morgan')
+const logger = require('./utils/logger')
+const fs = require('fs')
 require('dotenv').config();
 
 const {errorHandler} = require('./middleware/errorMiddleware');
@@ -25,12 +27,26 @@ app.use('/api/customers', require('./routes/customerRoutes'))
 
 app.use(errorHandler);
 
+morgan.token('data', request => {
+	if (request.body.password)
+		request.body.password = ''
+	return JSON.stringify(request.body)
+})
+
+
 mongoDB().then(() => {
-    console.log('Successfully connected to MongoDB')
+    logger.info('Successfully connected to MongoDB')
 })
 .catch((error) => {
-    console.log(`Failed to connect to MongoDB: ${error.message}`)
+    logger.error(`Failed to connect to MongoDB: ${error.message}`)
 });
+
+if (process.env.NODE_ENV === 'production')
+	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data', {
+		stream: fs.createWriteStream('./backend/logs/access.log', {flags: 'a'})
+	}))
+// if (process.env.NODE_ENV === 'production')
+// 	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data'))
 
 
 module.exports = app

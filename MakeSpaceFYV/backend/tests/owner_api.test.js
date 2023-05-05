@@ -60,7 +60,9 @@ describe('adding a new owner', () => {
                 .send(owner)
                 .expect(400)
     })
+})
 
+describe('Login Owner', () => {
     test('Owner login successfull', async() => {
         await api.
                 post('/api/owners/login')
@@ -79,8 +81,9 @@ describe('adding a new owner', () => {
                 .send(owner)
                 .expect(400)
     })
+  
+})
 
-    afterAll(() => {
-        mongoose.connection.close()
-    })
+afterAll(() => {
+    mongoose.connection.close()
 })

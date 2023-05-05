@@ -8,13 +8,13 @@ require("dotenv").config({
 
 const mongoDB = async() => {
     const uri = process.env.ATLAS_URI;
-
-    try{
+    const uri_test = process.env.ATLAS_URI_TEST
+    if(process.env.NODE_ENV=='test'){
+        conn = await mongoose.connect(uri_test)
+        console.log(`MongoDB database connection established successfully : ${conn.connection.host}`.cyan.underline);
+    } else {
         conn = await mongoose.connect(uri)
         console.log(`MongoDB database connection established successfully : ${conn.connection.host}`.cyan.underline);
-    } catch (error){
-        console.log(error);
-        process.exit(1);
     }
 }
 

@@ -66,7 +66,9 @@ describe('adding a new customer', () => {
                 .send(customer)
                 .expect(400)
     })
+})
 
+describe('Login Customer', () => {
     test('Customer login successfull', async() => {
         await api.
                 post('/api/customers/login')
@@ -85,8 +87,9 @@ describe('adding a new customer', () => {
                 .send(customer)
                 .expect(400)
     })
+    
+})
 
-    afterAll(() => {
-        mongoose.connection.close()
-    })
+afterAll(() => {
+    mongoose.connection.close()
 })

@@ -9,11 +9,8 @@ const Owner = require('../models/ownerModel')
 
 const getPropForCust = asyncHandler(async (req,res) => {
     const custPincode = req.body.pincode;
-
     const properties = await Property.find({pincode: custPincode})
-
     const updatedProperties = properties.filter(property => property.slots>0)
-
     res.status(200).json(updatedProperties)
 })
 
@@ -23,16 +20,19 @@ const getProperty = asyncHandler(async (req,res) => {
 })
 
 const registerProperty = asyncHandler(async (req,res) => {
-    const paramsProperty = req.body
+    const {owner_id, slots, prop_address, pincode} = req.body
+    if(!owner_id || !slots || !prop_address || !pincode) {
+        res.status(400)
+        throw new Error('Please add all Fields')
+    }
 
     const property = await Property.create({
-        owner_id: paramsProperty.owner_id,
-        slots: paramsProperty.slots,
-        prop_address: paramsProperty.prop_address,
-        pincode: paramsProperty.pincode
+        owner_id,
+        slots,
+        prop_address,
+        pincode
     })
-
-    res.status(200).json(property)
+    res.status(201).json(property)
 })
 
 const updateProperty = asyncHandler(async (req,res) => { //:id is parameter
@@ -50,14 +50,11 @@ const updateProperty = asyncHandler(async (req,res) => { //:id is parameter
 
 const deleteProperty = asyncHandler(async (req,res) => { //:id is parameter
     const property = await Property.findById(req.params.id)
-
     if(!property){
         res.status(400)
         throw new Error('Property not found!')
     }
-
     await Property.findByIdAndDelete(req.params.id);
-
     res.status(200).json({message: `DELETE Successful by: ${req.params.id}`})
 })
 

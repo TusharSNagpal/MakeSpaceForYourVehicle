@@ -23,9 +23,6 @@ const bookingsSchema = mongoose.Schema({
         out_date: {
             type: Date,
         }
-    },
-    {
-        timestamps: true,
     }
 )
 

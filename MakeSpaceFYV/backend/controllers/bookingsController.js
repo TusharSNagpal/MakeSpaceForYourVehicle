@@ -7,8 +7,7 @@ const Property = require('../models/propertiesModel')
 // @route GET /api/properties
 // @access Private
 const getBooking = asyncHandler(async (req,res) => {
-    const bookings = await Booking.find({vehicle_reg_no: req.body.vehicle_reg_no});
-
+    const bookings = await Booking.find({vehicle_reg_no: req.params.vehicle_reg_no});
     res.status(200).json(bookings)
 })
 
@@ -28,26 +27,29 @@ const getOnGoingBooking = asyncHandler(async (req,res) => {
 })
 
 const newBooking = asyncHandler(async (req,res) => {
-    const paramsBooking = req.body
+    const {prop_id, owner_id, customer_id, vehicle_reg_no} = req.body
+
+    if(!prop_id || !owner_id || !customer_id || !vehicle_reg_no) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
 
     const booking = await Booking.create({
-        prop_id: paramsBooking.prop_id,
-        owner_id: paramsBooking.owner_id,
-        customer_id: paramsBooking.customer_id,
-        vehicle_reg_no: paramsBooking.vehicle_reg_no,
+        prop_id,
+        owner_id,
+        customer_id,
+        vehicle_reg_no,
         in_date: new Date(),
         out_date: null
     })
 
-    const property = await Property.findById(paramsBooking.prop_id);
+    const property = await Property.findById(prop_id);
 
     if(property.slots === 0){
         res.status(400)
         throw new Error('No more slots available!')
     }
-    const updatedProperty = await Property.findByIdAndUpdate(paramsBooking.prop_id, {slots: property.slots-1}, {new: true,})
-
-    // console.log(req.body);
+    const updatedProperty = await Property.findByIdAndUpdate(prop_id, {slots: property.slots-1}, {new: true,})
 
     res.status(200).json(booking)
 })
