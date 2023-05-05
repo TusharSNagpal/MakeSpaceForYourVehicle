@@ -15,4 +15,4 @@ spec:
           service:
             name: msfyv-backend-service
             port: 
-              number: 5001
+              number: 5000

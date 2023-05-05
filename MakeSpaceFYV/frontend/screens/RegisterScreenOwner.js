@@ -16,7 +16,7 @@ import { useState, useRef } from "react";
 //importing components:
 import OwnerRegistration from "../components/OwnerRegistration";
 
-const API_URL = 'http://172.20.10.3:5001/api/owners/';
+const API_URL = 'http://172.20.10.3:5000/api/owners/';
 
 const RegisterScreenOwner = (props) => {
   const [loading, setLoading] = useState(false);
