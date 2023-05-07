@@ -11,20 +11,13 @@ WORKDIR /usr/src/app
 # COPY package*.json ./
 
 # # Install the dependencies mentioned in package.json
-# RUN npm install
+RUN npm install
 
 # # Copy the local files to the "app" folder
-# COPY . .
+COPY . .
 
 # # Expose port 3000 on the host machine to the container for listening to external connections
-# EXPOSE 19006 19000
-
-# # Start the React applications
-# CMD ["read", "-p", "Press enter to continue"]
-# # CMD ["export", "ANDROID_SDK_ROOT=$HOME/Android/Sdk"]
-# # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin"]
-# # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools"]
-# # CMD ["export", "PATH=$PATH:$ANDROID_SDK_ROOT/emulator"]
+EXPOSE 19006 19000
 
 CMD ["npx", "expo", "start"]
 
