@@ -1,4 +1,5 @@
-const ip = "192.168.43.181:5000";
+const ip = "172.16.132.90:5000";
+
 export const API_CUST_LOGIN = `http://${ip}/api/customers/login`;
 export const API_CUST_REGISTER = `http://${ip}/api/customers/`;
 export const API_CUST_GET = `http://${ip}/api/customers/getCustomer`;
