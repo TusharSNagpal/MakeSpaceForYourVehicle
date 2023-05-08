@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const customerSchema = mongoose.Schema({
+const securitySchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please add a name']
@@ -14,18 +14,10 @@ const customerSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add your address']
     },
-    pincode: {
-        type: String,
-        required: [true, 'Please add your address pincode']
-    },
-    // vehicle: {
-    //     type: String,
-    //     required: [true, 'Please add a vehicle number']
-    // },
     password: {
         type: String,
         required: [true, 'Please add a password']
     }
 })
 
-module.exports = mongoose.model('Customer', customerSchema)
+module.exports = mongoose.model('Security', securitySchema)

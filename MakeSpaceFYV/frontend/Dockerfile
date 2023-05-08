@@ -20,4 +20,3 @@ COPY . .
 EXPOSE 19006 19000
 
 CMD ["npx", "expo", "start"]
-
