@@ -10,8 +10,8 @@
         owner: ansible_usr
         group: ansible_usr
         mode: 0644
-    - name: Minikube Delete
-      command: minikube delete
+    # - name: Minikube Delete
+    #   command: minikube delete
     - name: Minikube
       command: minikube start
     - name: Apply backend secret file
@@ -20,9 +20,9 @@
       command: kubectl apply -f kubernetes/msfyv-backend.yaml
     - name: Service
       command: minikube service msfyv-backend-service
-    # - name: Apply frontend configmap
-    #   command: kubectl apply -f kubernetes/msfyv-frontend-configmap.yaml
-    # - name: Frontend Service
-    #   command: kubectl apply -f kubernetes/msfyv-frontend.yaml
+    - name: Apply frontend configmap
+      command: kubectl apply -f kubernetes/msfyv-frontend-configmap.yaml
+    - name: Frontend Service
+      command: kubectl apply -f kubernetes/msfyv-frontend.yaml
     - name: Execute the script
       script: kubernetes/test.sh
