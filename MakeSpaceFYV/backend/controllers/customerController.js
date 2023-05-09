@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const Customer = require('../models/customerModel')
+const jwt = require('jsonwebtoken')
 
 const registerCustomer = asyncHandler(async(req, res) => {
-    const {name, phone, address, pincode, vehicle, password} = req.body
+    const {name, phone, address, pincode, password} = req.body
 
-    if(!name || !phone || !address || !vehicle || !password || !pincode) {
+    if(!name || !phone || !address || !password || !pincode) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -24,7 +25,7 @@ const registerCustomer = asyncHandler(async(req, res) => {
         name: name,
         phone: phone,
         address: address,
-        vehicle: vehicle,
+        // vehicle: vehicle,
         password: hashedPassword,
         pincode: pincode
     })
@@ -35,7 +36,7 @@ const registerCustomer = asyncHandler(async(req, res) => {
             name: customer.name,
             phone: customer.phone,
             address: customer.address,
-            vehicle: customer.vehicle,
+            // vehicle: customer.vehicle,
             pincode: customer.pincode
         })
     } else {
@@ -49,13 +50,15 @@ const loginCustomer = asyncHandler(async(req, res) => {
     const customer = await Customer.findOne({phone})
 
     if(customer && (await bcrypt.compare(password, customer.password))) {
+        const token = jwt.sign({phone: customer.phone}, 'secret')
         res.json({
             _id: customer.id,
             name: customer.name,
             phone: customer.phone,
             address: customer.address,
-            vehicle: customer.vehicle,
-            pincode: customer.pincode
+            // vehicle: customer.vehicle,
+            pincode: customer.pincode,
+            token
         })
     } else {
         res.status(400)
@@ -73,7 +76,7 @@ const getCustomer = asyncHandler(async(req, res) => {
             name: customer.name,
             phone: customer.phone,
             address: customer.address,
-            vehicle: customer.vehicle,
+            // vehicle: customer.vehicle,
             pincode: customer.pincode
         })
     } else {

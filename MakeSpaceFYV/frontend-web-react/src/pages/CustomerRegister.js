@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Owner from './Owner'
+import axios from 'axios'
+import { API_CUST_REGISTER } from '../apis/apis'
 
 function CustomerRegister() {
     const navigate = useNavigate();
@@ -17,12 +19,10 @@ function CustomerRegister() {
 
     const onChangeName = (event) => {
       setName(event.target.value);
-      console.log(phone);
     }
 
     const onChangePhone = (event) => {
         setPhone(event.target.value);
-        console.log(phone);
     }
 
     const onChangePassword = (event) => {
@@ -30,19 +30,52 @@ function CustomerRegister() {
     }
 
     const onChangePincode = (event) => {
-      setPincode(event.target.value);
+        setPincode(event.target.value);
     }
 
     const onChangeAddress = (event) => {
-      setAddress(event.target.value);
+        setAddress(event.target.value);
     }
 
     const onChangeConfirmPass = (event) => {
-      setConfirmPass(event.target.value);
+        setConfirmPass(event.target.value);
     }
 
-    const onSubmit = () => {
-        
+    const redirectTo = () => {
+      navigate('/customer')
+    }
+
+    const onSubmit = async() => {
+        if(name === '' || phone === '' || password === '' || confirmPass === '' || address === '' || pincode === ''){
+          alert('All fields are mandatory for submission.');
+          return;
+        }
+        else{
+          if(password !== confirmPass){
+            console.log('Password Mismatch')
+            alert('Password Mismatch');
+            return;
+          }
+
+          let customer = {
+            name,
+            phone,
+            address,
+            password,
+            pincode
+            // confirmPass: confirmPass
+          }
+          // customer = JSON.stringify(customer);
+          // console.log(customer)
+          try{
+            await axios.post(`${API_CUST_REGISTER}`, customer)
+            navigate('/customer');
+          }
+          catch(error){
+              console.log(error);
+              alert('Phone number already exists. Please try again with different phone number');
+          }
+        }
     }
   return (
     <>
@@ -54,7 +87,7 @@ function CustomerRegister() {
       </section>
 
       <section className='form'>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
               type='text'
@@ -83,7 +116,7 @@ function CustomerRegister() {
             <input
               type='text'
               className='form-control'
-              placeholder='121001'
+              placeholder='Enter your pincode'
               onChange={onChangePincode}
             />
           </div>
@@ -106,14 +139,14 @@ function CustomerRegister() {
           </div>
         </form>
         <div className='form-group'>
-          <button className='btn btn-block'>
+          <button onClick = {onSubmit} className='btn btn-block'>
             Submit
           </button>
         </div>
         <div>
           <p>Already have an account?</p>
           <center>
-            <button onClick = {navigate('/customer')} className='btn'>Login</button>
+            <button onClick = {redirectTo} className='btn'>Login</button>
           </center>
         </div>
       </section>
