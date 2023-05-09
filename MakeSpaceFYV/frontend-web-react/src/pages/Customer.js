@@ -22,6 +22,7 @@ function Customer() {
     }
 
     const redirectTo = () => {
+      console.log('pushing')
       navigate("/customerRegister");
     }
 
@@ -69,7 +70,7 @@ function Customer() {
           </div>
           <div>
             <p>Don't have an account?</p>
-            <center><button onClick={redirectTo()} className='btn'>
+            <center><button onClick={redirectTo} className='btn'>
               Register
             </button></center>
           </div>
