@@ -9,6 +9,10 @@ const bookingsSchema = mongoose.Schema({
             type: String,
             required: [true, 'Please add propId']
         },
+        prop_address: {
+            type: String,
+            required: [true, 'Please add property address']
+        },
         customer_id: {
             type: String,
             required: [true, 'Please add customerId']

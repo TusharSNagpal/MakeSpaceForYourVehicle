@@ -8,7 +8,9 @@ import Customer from './pages/Customer';
 import CustomerRegister from './pages/CustomerRegister';
 import OwnerRegister from './pages/OwnerRegister';
 import OwnerProperties from './pages/OwnerProperties';
-
+import Bookings from './pages/Bookings';
+import BookingSlot from './pages/BookingSlot';
+import ViewBooking from './pages/ViewBookings';
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
             <Route path='/customerRegister' element={<CustomerRegister />}></Route>
             <Route path='/ownerRegister' element={<OwnerRegister />}></Route>
             <Route path='/ownerProperties' element={<OwnerProperties />}></Route>
-
+            <Route path='/bookings' element={<Bookings />}></Route>
+            <Route path='/bookingSlot' element={<BookingSlot />}></Route>
+            <Route path='/viewBookings' element={<ViewBooking />}></Route>
           </Routes>
         </div>
       </Router>

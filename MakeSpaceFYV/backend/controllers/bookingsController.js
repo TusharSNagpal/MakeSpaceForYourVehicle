@@ -12,20 +12,40 @@ const getBooking = asyncHandler(async (req,res) => {
 })
 
 const getOnGoingBooking = asyncHandler(async (req,res) => {
-    const bookings = await Booking.find({vehicle_reg_no: req.body.vehicle_reg_no, out_date: null});
+    const bookings = await Booking.find({customer_id: req.body.customer_id, out_date: null});
     if(bookings.length === 0){
         res.status(400)
         throw new Error('No such booking found!')
     }
     const curDate = new Date();
     // console.log(bookings[0].in_date);
-    const inDate = new Date(bookings[0].in_date);
 
-    const timeDifference = curDate.getTime() - inDate.getTime();
+    updatedBookings = [];
 
-    let differentDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    const response = async() => {
+
+        bookings.map(async(booking)=>{
+            // const property = await Property.findOne({_id: booking.prop_id});
+            // const prop_address = property.prop_address;
+            // console.log(prop_address);
+            const inDate = new Date(booking.in_date);
+            const timeDifference = curDate.getTime() - inDate.getTime();
+            let differentDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+            let price = 50*differentDays;
+            updatedBookings = [...updatedBookings, {...booking, price}]
+            // booking = {...booking, price};
+        })
+    }
+
+    await response();
+    // const inDate = new Date(bookings[0].in_date);
+
+    // const timeDifference = curDate.getTime() - inDate.getTime();
+
+    // let differentDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
     // console.log(inDate);
-    res.status(200).json({...bookings, price: 50*differentDays});
+    console.log(updatedBookings)
+    res.status(200).json(updatedBookings);
 })
 
 const newBooking = asyncHandler(async (req,res) => {
@@ -36,16 +56,19 @@ const newBooking = asyncHandler(async (req,res) => {
         throw new Error('Please add all fields')
     }
 
+    const property = await Property.findById(prop_id);
+    console.log(property.prop_address);
+    const prop_address = property.prop_address;
+
     const booking = await Booking.create({
         prop_id,
+        prop_address,
         owner_id,
         customer_id,
         vehicle_reg_no,
         in_date: new Date(),
         out_date: null
     })
-
-    const property = await Property.findById(prop_id);
 
     if(property.slots === 0){
         res.status(400)
@@ -57,7 +80,7 @@ const newBooking = asyncHandler(async (req,res) => {
 })
 
 const goingOut = asyncHandler(async (req,res) => { //:id is parameter
-    const filter = {vehicle_reg_no: req.body.vehicle_reg_no, out_date: null};
+    const filter = {_id: req.body._id, out_date: null};
     const booking = await Booking.findOne(filter);
 
     if(!booking){

@@ -122,7 +122,6 @@ const BookingScreen = (props) => {
         <Text style={[styles.textProp,{fontWeight: 'bold'}]}>Confirm Details:</Text>
         <Text style={styles.textProp}>Vehicle Number: {profileDetails.vehicle}</Text>
         <Text style={styles.textProp}>Phone Number: {profileDetails.phone}</Text>
-
         {/* <View style={styles.slotStyle}> */}
         {/* </View> */}
       </Card>
