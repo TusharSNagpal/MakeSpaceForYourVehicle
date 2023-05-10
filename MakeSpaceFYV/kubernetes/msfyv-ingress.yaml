@@ -10,16 +10,16 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/api"
-        backend:
-          service:
-            name: msfyv-backend-service
-            port: 
-              number: 5000
-      - pathType: Prefix
         path: "/"
         backend:
           service:
             name: msfyv-frontend-service
             port: 
               number: 3000
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: msfyv-backend-service
+            port: 
+              number: 5000

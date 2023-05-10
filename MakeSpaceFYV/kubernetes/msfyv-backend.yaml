@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msfyv-deployment
+  name: msfyv-backend-deployment
 spec:
   selector:
     matchLabels:
@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: msfyv-backend
-        image: tusharsnagpal/make-space-for-your-vehicle-backend
+        image: tusharsnagpal/make-space-for-your-vehicle-backend:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - name: http
           containerPort: 5000
