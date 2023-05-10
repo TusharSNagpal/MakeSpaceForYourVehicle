@@ -18,7 +18,6 @@ describe('adding a new customer', () => {
             'phone': 'Jay',
             'address': 'IIITB',
             'pincode': '390006',
-            'vehicle': '4130',
             'password': 'jay'
         }
     
@@ -41,7 +40,6 @@ describe('adding a new customer', () => {
             'phone': 'Jayant',
             'address': 'IIITB',
             'pincode': '390006',
-            'vehicle': '4131',
             'password': 'jayant'
         }
 
@@ -57,7 +55,6 @@ describe('adding a new customer', () => {
             'phone': '9558342619',
             'address': 'IIITB',
             'pincode': '390006',
-            'vehicle': '8140',
             'password': 'gaurav'
         }
 

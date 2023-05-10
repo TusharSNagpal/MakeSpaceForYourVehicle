@@ -42,7 +42,6 @@ const initialCustomers = [
         'phone': '9558342619',
         'address': 'IIITB',
         'pincode': '390006',
-        'vehicle': '8140',
         'password': '$2a$10$UDGGLBRXE8nHCR1WadpiAOIuaf0w5xMy1SN0Ce6SF7hQe4eXbfd.S'
     },
     {
@@ -51,7 +50,6 @@ const initialCustomers = [
         'phone': '9650817131',
         'address': 'IIITB',
         'pincode': '390006',
-        'vehicle': '4132',
         'password': '$2a$10$iXaLSnhgNr2bIu1YbIPlN.c5sL0m7N46/TWv/Kqy3qbTofvNFILQe'
     }
 ]
@@ -77,6 +75,7 @@ const initialBookings = [
     {
         _id: '6443dfb27dc611605f6c6e45',
         prop_id: '6443dfb27dc611605f6c6e35',
+        prop_address: "Gurgaon",
         owner_id: '6443dfb002e346c42ba02212',
         customer_id: '6443dfb27dc611605f6c6e28',
         vehicle_reg_no: '8140',
@@ -86,6 +85,7 @@ const initialBookings = [
     {
         _id: '6443dfb27dc611605f6c6e46',
         prop_id: '6443dfb27dc611605f6c6e35',
+        prop_address: "Gurgaon",
         owner_id: '6443dfb002e346c42ba02212',
         customer_id: '6443dfb27dc611605f6c6e28',
         vehicle_reg_no: '8145',

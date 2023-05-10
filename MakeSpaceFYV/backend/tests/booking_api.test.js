@@ -22,10 +22,10 @@ beforeEach(async () => {
 
 describe('Get Bookings', () => {
     test('Get ongoing bookings a customer', async() =>{
-        const vehicle_reg_no = '8140'
+        const customer_id= '6443dfb27dc611605f6c6e28';
         await api
                 .post('/api/bookings/currentBooking')
-                .send({vehicle_reg_no})
+                .send({customer_id})
                 .expect(200)
                 .expect('Content-Type', /application\/json/)
     })
@@ -35,6 +35,7 @@ describe('Add a new booking', () =>{
     test('Customer booking successful', async() =>{
         const booking = {
             prop_id: '6443dfb27dc611605f6c6e35',
+            prop_address: "Gurgaon",
             owner_id: '6443dfb002e346c42ba02212',
             customer_id: '6443dfb27dc611605f6c6e28',
             vehicle_reg_no: '8143'
@@ -59,6 +60,7 @@ describe('Add a new booking', () =>{
     test('No slots available', async() =>{
         const booking = {
             prop_id: '6443dfb27dc611605f6c6e36',
+            prop_address: "Gurgaon",
             owner_id: '6443dfb002e346c42ba02212',
             customer_id: '6443dfb27dc611605f6c6e28',
             vehicle_reg_no: '8141'
@@ -72,10 +74,12 @@ describe('Add a new booking', () =>{
 
 describe('End booking', () =>{
     test('End booking successful', async() =>{
-        const vehicle_reg_no = '8145'
+        // const vehicle_reg_no = '8145'
+        const _id = '6443dfb27dc611605f6c6e45'
+
         await api
                 .put('/api/bookings/out')
-                .send({vehicle_reg_no})
+                .send({_id})
                 .expect(200)
     })
 
