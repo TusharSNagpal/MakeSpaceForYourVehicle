@@ -49,6 +49,7 @@ function Customer() {
     }
 
     const redirectTo = () => {
+      console.log('pushing')
       navigate("/customerRegister");
     }
 

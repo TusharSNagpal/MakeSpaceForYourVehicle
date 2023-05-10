@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const path = require('path')
 const asyncHandler = require('express-async-handler')
 const Owner = require('../models/ownerModel')
+const jwt = require('jsonwebtoken')
 
 const registerOwner = asyncHandler(async(req, res) => {
     const {name, phone, address, password} = req.body
@@ -46,11 +47,14 @@ const loginOwner = asyncHandler(async(req, res) => {
     const owner = await Owner.findOne({phone})
 
     if(owner && (await bcrypt.compare(password, owner.password))) {
+        const token = jwt.sign({phone: owner.phone}, 'secret')
+        console.log(token)
         res.status(200).json({
             _id: owner.id,
             name: owner.name,
             phone: owner.phone,
-            address: owner.address
+            address: owner.address,
+            token
         })
     } else {
         res.status(400)

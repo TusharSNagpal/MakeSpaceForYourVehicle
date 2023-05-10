@@ -4,8 +4,8 @@
   "description": "Make Space For Your Vehicle",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node backend/index.js",
-    "server": "NODE_ENV=production nodemon backend/index.js",
+    "start": "NODE_ENV=production node index.js",
+    "server": "NODE_ENV=production nodemon index.js",
     "test": "NODE_ENV=test jest --runInBand --verbose backend/tests/**.test.js"
   },
   "author": "TusharSNagpal, Gaurav Tilokani",
