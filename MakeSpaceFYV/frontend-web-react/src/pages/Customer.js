@@ -87,7 +87,7 @@ function Customer() {
 
   return (
     <>
-    <Header></Header>
+    <Header />
   {loading?
     <center><div className='loadingSpinner'></div></center>
     :null}

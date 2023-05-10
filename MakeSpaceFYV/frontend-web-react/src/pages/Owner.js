@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as variables from "../apis/apis";
 import Cookies from "js-cookie";
+import Header from '../components/Header'
 
 function Owner() {
     let navigate = useNavigate();
@@ -74,6 +75,7 @@ function Owner() {
     }
   return (
     <>
+        <Header />
       <section className='heading'>
         <h1>
           <FaSignInAlt /> Owner Login
