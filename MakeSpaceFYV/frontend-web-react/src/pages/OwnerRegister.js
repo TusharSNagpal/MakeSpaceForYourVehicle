@@ -4,7 +4,7 @@ import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const API_URL = 'http://127.0.0.1:5000/api/owners/';
+const API_URL = 'http://autospot.com/api/owners/';
 
 function OwnerRegister() {
     const navigate = useNavigate();
