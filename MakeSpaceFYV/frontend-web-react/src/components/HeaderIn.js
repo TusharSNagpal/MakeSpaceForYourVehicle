@@ -2,7 +2,7 @@ import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 import {useState} from 'react'
 
-function Header() {
+function HeaderIn() {
   return (
     <header className='header'>
         <div className="logo">
@@ -10,13 +10,11 @@ function Header() {
         </div>
         <ul>
             <li>
-                <Link to='/owner'>
-                    <FaUser /> Owner
-                </Link>
+                CUSTOMER
             </li>
             <li>
                 <Link to='/customer'>
-                    <FaUser /> Customer
+                    <FaUser /> LOGOUT
                 </Link>
             </li>
         </ul>
@@ -24,4 +22,4 @@ function Header() {
   )
 }
 
-export default Header
+export default HeaderIn

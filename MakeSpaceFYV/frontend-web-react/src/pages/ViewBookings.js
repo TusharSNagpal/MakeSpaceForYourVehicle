@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_CURR_BOOKING, API_NEW_BOOKING ,API_END_BOOKING} from "../apis/apis";
 import { useNavigate } from "react-router-dom";
+import HeaderIn from "../components/HeaderIn";
 
 function ViewBooking() {
   let navigate = useNavigate();
@@ -20,35 +21,39 @@ function ViewBooking() {
 
   useEffect(()=>{
     const customer_id = user._id;
-    try{
-        axios.post(`${API_CURR_BOOKING}`, {customer_id})
-        .then((res)=>{
-            console.log(res.data)
-            setBookings(res.data);
-        })
-    }
-    catch(error){
-        console.log(error);
-    }
-  },[refresh])
+        // if(bookings.length()>0){
+            axios.post(`${API_CURR_BOOKING}`, {customer_id})
+            .then((res)=>{
+                // if(res.status === 400){
+                //     setBookings([]);
+                // }
+                // else
+                if(res.status!==400)
+                    setBookings(res.data);
+            })
+            .catch((err)=>{
+                setBookings([]);
+            })
+        // }
+        },[refresh])
 
   const handleRemPayment = (_id) => {
     console.log(_id)
-    try{
         axios.put(`${API_END_BOOKING}`, {_id})
+        .catch((err)=>{
+            console.log(err);
+            alert('Payment Unsuccessful. Please try again');
+        })
         .then((res)=>{
             console.log(res);
             alert('Payment Successful.');
             toggle();
         })
-    }
-    catch{
-        alert('Payment Unsuccessful. Please try again');
-    }
   }
   
   return (
     <div>
+        <HeaderIn></HeaderIn>
       <section className="heading">
         <p>Dear {user.name}, Here are your Ongoing Bookings:</p>
       </section>
@@ -57,7 +62,7 @@ function ViewBooking() {
         return (
           <div className="goals">
             <div className="goal">
-              <label className="margin-set">Parking Address: {data.prop_address}</label>
+              <label className="margin-set">Parking Address: {data._doc.prop_address}</label>
               <label className="margin-set">Vehicle Registration Number: {data._doc.vehicle_reg_no}</label>
               {/* <br></br> */}
               <button
@@ -72,6 +77,11 @@ function ViewBooking() {
           </div>
         );
       })}
+      <br></br>
+      {bookings.length === 0 ? 
+        <h1>You don't have any ongoing bookings.</h1>
+        :null
+      }
     </div>
   );
 }

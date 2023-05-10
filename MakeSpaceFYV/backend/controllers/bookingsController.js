@@ -22,10 +22,8 @@ const getOnGoingBooking = asyncHandler(async (req,res) => {
 
     updatedBookings = [];
 
-    const response = async() => {
-
         bookings.map(async(booking)=>{
-            // const property = await Property.findOne({_id: booking.prop_id});
+            // const property = await Property.findById(booking.prop_id);
             // const prop_address = property.prop_address;
             // console.log(prop_address);
             const inDate = new Date(booking.in_date);
@@ -35,9 +33,7 @@ const getOnGoingBooking = asyncHandler(async (req,res) => {
             updatedBookings = [...updatedBookings, {...booking, price}]
             // booking = {...booking, price};
         })
-    }
 
-    await response();
     // const inDate = new Date(bookings[0].in_date);
 
     // const timeDifference = curDate.getTime() - inDate.getTime();
@@ -49,16 +45,16 @@ const getOnGoingBooking = asyncHandler(async (req,res) => {
 })
 
 const newBooking = asyncHandler(async (req,res) => {
-    const {prop_id, owner_id, customer_id, vehicle_reg_no} = req.body
+    const {prop_id, prop_address, owner_id, customer_id, vehicle_reg_no} = req.body
 
-    if(!prop_id || !owner_id || !customer_id || !vehicle_reg_no) {
+    if(!prop_id || !owner_id || !customer_id || !vehicle_reg_no || !prop_address) {
         res.status(400)
         throw new Error('Please add all fields')
     }
 
     const property = await Property.findById(prop_id);
-    console.log(property.prop_address);
-    const prop_address = property.prop_address;
+    // console.log(property.prop_address);
+    // const prop_address = property.prop_address;
 
     const booking = await Booking.create({
         prop_id,

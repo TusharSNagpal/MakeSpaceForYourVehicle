@@ -6,7 +6,7 @@ metadata:
     name: msfyv-ingress
 spec:
   rules:
-  - host: 172.16.132.90
+  - host: autospot.com
     http:
       paths:
       - pathType: Prefix
@@ -16,3 +16,10 @@ spec:
             name: msfyv-backend-service
             port: 
               number: 5000
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: msfyv-frontend-service
+            port: 
+              number: 3000

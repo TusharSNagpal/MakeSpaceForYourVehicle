@@ -3,11 +3,15 @@ import axios from "axios";
 import { API_CUST_GET, API_PROPCUST_GET } from "../apis/apis";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import HeaderIn from "../components/HeaderIn";
 
 function Bookings() {
+  const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState();
   const [properties, setProperties] = useState([]);
   const [user, setUser] = useState([]);
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
 
   let navigate = useNavigate();
 
@@ -16,16 +20,23 @@ function Bookings() {
   };
 
   useEffect(() => {
+    setLoading(true);
+    // console.log("aa")
+    const f = async() => {
+      await delay(1000);
     const session = GetCookie();
     // console.log(session);
     const phone = session[1];
     if (session[1] === undefined) {
-      // console.log(session[1]);
+      console.log(session[1]);
       navigate("/customer");
     } else {
-      try {
         // console.log(phone);
-        axios.post(`${API_CUST_GET}`, { phone }).then((res) => {
+        axios.post(`${API_CUST_GET}`, { phone })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then((res) => {
           setUser(res.data);
           const d = res.data.pincode;
           // console.log(d);
@@ -34,13 +45,17 @@ function Bookings() {
             // console.log(res.data);
           });
         });
-      } catch (error) {
-        console.log(error);
-      }
     }
+    setLoading(false);
+  }
+  f();
   }, []);
   return (
     <>
+      <HeaderIn></HeaderIn>
+      {loading?
+      <center><div className='loadingSpinner'></div></center>
+      :null}
       <section className="heading">
         <p>Available Parking Slots, {user.pincode}</p>
       </section>

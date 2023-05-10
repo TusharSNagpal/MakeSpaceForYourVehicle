@@ -10,10 +10,12 @@
         owner: ansible_usr
         group: ansible_usr
         mode: 0644
-    # - name: Minikube Delete
-    #   command: minikube delete
+    - name: Minikube Delete
+      command: minikube delete
     - name: Minikube
       command: minikube start
+    - name: Ingress enable
+      command: minikube addons enable ingress
     - name: Apply backend secret file
       command: kubectl apply -f kubernetes/msfyv-backend-secret.yaml
     - name: Apply backend
@@ -24,5 +26,7 @@
       command: kubectl apply -f kubernetes/msfyv-frontend-configmap.yaml
     - name: Frontend Service
       command: kubectl apply -f kubernetes/msfyv-frontend.yaml
-    - name: Execute the script
-      script: kubernetes/test.sh
+    - name: Ingress Active
+      command: kubectl apply -f msfyv-ingress.yaml
+    # - name: Execute the script
+    #   script: kubernetes/test.sh

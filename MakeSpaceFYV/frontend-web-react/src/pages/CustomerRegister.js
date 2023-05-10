@@ -67,14 +67,14 @@ function CustomerRegister() {
           }
           // customer = JSON.stringify(customer);
           // console.log(customer)
-          try{
             await axios.post(`${API_CUST_REGISTER}`, customer)
-            navigate('/customer');
-          }
-          catch(error){
+            .catch((error)=>{
               console.log(error);
               alert('Phone number already exists. Please try again with different phone number');
-          }
+            })
+            .then(()=>{
+              navigate('/customer');
+            })
         }
     }
   return (
