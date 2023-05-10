@@ -2,10 +2,10 @@ import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 import {useState} from 'react'
 import Cookies from 'js-cookie'
-function HeaderIn() {
+function HeaderOwn() {
     const logout = () => {
-        Cookies.remove('phoneCust')
-        Cookies.remove('tokenCust')
+        Cookies.remove('phoneOwner')
+        Cookies.remove('tokenOwner')
     }
   return (
     <header className='header'>
@@ -14,10 +14,10 @@ function HeaderIn() {
         </div>
         <ul>
             <li>
-                CUSTOMER
+                OWNER
             </li>
             <li>
-                <Link to='/customer ' onClick={logout}>
+                <Link to='/owner ' onClick={logout}>
                     <FaUser /> LOGOUT
                 </Link>
             </li>
@@ -26,4 +26,4 @@ function HeaderIn() {
   )
 }
 
-export default HeaderIn
+export default HeaderOwn

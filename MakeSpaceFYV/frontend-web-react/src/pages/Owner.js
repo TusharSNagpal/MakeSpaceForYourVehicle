@@ -2,8 +2,9 @@ import React from 'react'
 import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as variables from "../allVariables.js";
+import * as variables from "../apis/apis";
 import Cookies from "js-cookie";
+import Header from '../components/Header'
 
 
 function Owner() {
@@ -75,6 +76,7 @@ function Owner() {
     }
   return (
     <>
+        <Header />
       <section className='heading'>
         <h1>
           <FaSignInAlt /> Owner Login

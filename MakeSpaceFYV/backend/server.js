@@ -4,31 +4,59 @@ const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs')
 const path = require('path')
+const winston = require('winston')
+const { ElasticsearchTransport } = require('winston-elasticsearch');
 
 const accessLogStream = fs.createWriteStream(
 	path.join(__dirname, './logs/access.log'),
 	{ flags: 'a' }
 )
 
-// const logger = require('./utils/logger')
-// const {getLogger} = require('./utils/winston')
-require('dotenv').config();
 
-const {errorHandler} = require('./middleware/errorMiddleware');
-
-// let logger;
-
-// const funLogger = async() => {
-// 	 logger = await getLogger();
-// } 
-
-// funLogger();
-
-//database connection function:
 const mongoDB = require('./config/db');
 
 const app = express();
 const port = process.env.PORT;
+require('dotenv').config();
+
+const {errorHandler} = require('./middleware/errorMiddleware');
+
+const logger = winston.createLogger({
+	level: 'info',
+	transports: [
+	  new ElasticsearchTransport({
+		level: 'info',
+		index: 'logs',
+		clientOpts: {
+		  node: 'http://localhost:9200',
+		},
+	  }),
+	],
+  });
+
+  app.use((req, res, next) => {
+	logger.info({
+	  message: "API request",
+	  method: req.method,
+	  path: req.path,
+	  query: req.query,
+	  body: req.body
+	});
+  
+	res.on("finish", () => {
+	  logger.info({
+		message: "API response",
+		method: req.method,
+		path: req.path,
+		status: res.statusCode
+	  });
+	});
+  
+	next();
+  });
+
+//database connection function:
+
 
 app.use(cors());
 app.use(express.json());
@@ -40,16 +68,10 @@ app.use('/api/properties', require('./routes/propertyRoutes'))
 app.use('/api/owners', require('./routes/ownerRoutes'))
 app.use('/api/bookings', require('./routes/bookingRoutes'))
 app.use('/api/customers', require('./routes/customerRoutes'))
+  
 
 
 app.use(errorHandler);
-
-// morgan.token('data', request => {
-// 	if (request.body.password)
-// 		request.body.password = ''
-// 	return JSON.stringify(request.body)
-// })
-
 
 mongoDB().then(() => {
 	console.log('Successfully connected to MongoDB')
@@ -59,13 +81,5 @@ mongoDB().then(() => {
 	console.log(`Failed to connect to MongoDB: ${error.message}`)
     // logger.error(`Failed to connect to MongoDB: ${error.message}`)
 });
-
-// if (process.env.NODE_ENV === 'production')
-// 	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data', {
-// 		stream: fs.createWriteStream('./backend/logs/access.log', {flags: 'a'})
-// 	}))
-// if (process.env.NODE_ENV === 'production')
-// 	app.use(morgan(':date[web] :method :url :status :res[content-length] - :response-time ms :data'))
-
 
 module.exports = app

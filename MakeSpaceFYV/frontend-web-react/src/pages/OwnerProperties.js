@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import * as variables from "../allVariables.js";
+import * as variables from "../apis/apis";
 import {useLocation} from 'react-router-dom';
+import HeaderOwn from '../components/HeaderOwn'
 
 function OwnerProperties() {
     const location = useLocation()
@@ -93,6 +94,7 @@ function OwnerProperties() {
     }
     return(
         <div>
+            <HeaderOwn />
             <div style={{display:'flex', justifyContent: 'center', margin:'20px'}}>
                 <button className="btn" onClick = {propFormHandler} >Add Property</button>
             </div>
