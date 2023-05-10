@@ -16,8 +16,6 @@
     #   command: sudo chmod 666 /var/run/docker.sock
     - name: Minikube
       command: minikube start
-    - name: Ingress enable
-      command: minikube addons enable ingress
     - name: Apply backend secret file
       command: kubectl apply -f kubernetes/msfyv-backend-secret.yaml
     - name: Apply backend
@@ -30,5 +28,7 @@
       command: kubectl apply -f kubernetes/msfyv-frontend.yaml
     - name: Ingress Active
       command: kubectl apply -f kubernetes/msfyv-ingress.yaml
+    - name: Ingress enable
+      command: minikube addons enable ingress
     # - name: Execute the script
     #   script: kubernetes/test.sh
