@@ -1,17 +1,8 @@
 const express = require('express');
 const colors = require('colors')
 const cors = require('cors');
-const morgan = require('morgan');
-const fs = require('fs')
-const path = require('path')
 const winston = require('winston')
 const { ElasticsearchTransport } = require('winston-elasticsearch');
-
-const accessLogStream = fs.createWriteStream(
-	path.join(__dirname, './logs/access.log'),
-	{ flags: 'a' }
-)
-
 
 const mongoDB = require('./config/db');
 
@@ -29,8 +20,8 @@ const logger = winston.createLogger({
 		index: 'logs',
 		clientOpts: {
 		  node: 'https://35bf-103-156-19-229.ngrok-free.app',
-		},
-	  }),
+	  }
+	}),
 	],
   });
 
@@ -75,11 +66,9 @@ app.use(errorHandler);
 
 mongoDB().then(() => {
 	console.log('Successfully connected to MongoDB')
-    // logger.info('Successfully connected to MongoDB')
 })
 .catch((error) => {
 	console.log(`Failed to connect to MongoDB: ${error.message}`)
-    // logger.error(`Failed to connect to MongoDB: ${error.message}`)
 });
 
 module.exports = app
