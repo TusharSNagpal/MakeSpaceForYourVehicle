@@ -35,7 +35,7 @@ function OwnerRegister() {
     }
 
     const goToLogin = () => {
-      navigate('/')
+      navigate('/owner')
     }
 
     const onSubmit = () => {

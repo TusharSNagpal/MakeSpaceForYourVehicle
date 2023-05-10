@@ -40,7 +40,7 @@ const getOnGoingBooking = asyncHandler(async (req,res) => {
 
     // let differentDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
     // console.log(inDate);
-    console.log(updatedBookings)
+    // console.log(updatedBookings)
     res.status(200).json(updatedBookings);
 })
 

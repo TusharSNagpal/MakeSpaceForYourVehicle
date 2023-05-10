@@ -18,8 +18,8 @@ function App() {
       <Router>
         <div className='container'>
           <Routes>
-            {/* <Route path='/' element={<Dashboard />}></Route> */}
-            <Route path='/' element={<Owner />}></Route>
+            <Route path='/' element={<Dashboard />}></Route>
+            <Route path='/owner' element={<Owner />}></Route>
             <Route path='/customer' element={<Customer />}></Route>
             <Route path='/customerRegister' element={<CustomerRegister />}></Route>
             <Route path='/ownerRegister' element={<OwnerRegister />}></Route>

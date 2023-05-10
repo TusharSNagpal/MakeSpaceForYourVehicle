@@ -1,18 +1,24 @@
 const winston = require('winston')
-const winstonRotate = require('winston-daily-rotate-file')
+const { ElasticsearchTransport } = require('winston-elasticsearch');
 
 async function getLogger(){
     try{
         return winston.createLogger({
             transports: [
-                new winston.transports.DailyRotateFile({
-                    filename: "logger.log",
-                    frequency: "1m",
-                    datePattern: "YYYY-MM-DD-HH-mm",
-                    maxSize: "1k",
-                    maxFiles: 2,
-                    dirname: "./logs"
-                })
+                new ElasticsearchTransport({
+                    level: 'info',
+                    index: 'logs',
+                    clientOpts: {
+                        node: 'https://major-project-spe.es.us-central1.gcp.cloud.es.io:9243',
+                        auth: {
+                          username: 'elastic',
+                          password: 'H56uiC5QxpbQCyX0k3FkwRAy'
+                        },
+                        cloud: {
+                            id: 'Major_Project_SPE:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQ4NWM1NTZkMDNjNWE0YWI3OTIwNjIzYTNiNTk1NDgzYiRmZTZiMjVjZWJkZjg0NjYxOTNhNmU1NmU4NTA2NTBiNw=='
+                        }
+                      },
+                  }),
             ]
         })
     }
