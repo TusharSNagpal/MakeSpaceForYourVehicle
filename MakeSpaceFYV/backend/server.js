@@ -54,7 +54,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.raw({extended: false}));
 
-app.use(morgan('tiny', { stream: accessLogStream }))
 app.use('/api/properties', require('./routes/propertyRoutes'))
 app.use('/api/owners', require('./routes/ownerRoutes'))
 app.use('/api/bookings', require('./routes/bookingRoutes'))
