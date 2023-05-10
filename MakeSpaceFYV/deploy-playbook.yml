@@ -20,8 +20,6 @@
       command: kubectl apply -f kubernetes/msfyv-backend-secret.yaml
     - name: Apply backend
       command: kubectl apply -f kubernetes/msfyv-backend.yaml
-    - name: Service
-      command: minikube service msfyv-backend-service
     - name: Apply frontend configmap
       command: kubectl apply -f kubernetes/msfyv-frontend-configmap.yaml
     - name: Frontend Service
