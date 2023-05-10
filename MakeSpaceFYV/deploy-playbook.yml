@@ -7,11 +7,11 @@
       copy:
         src: ./kubernetes
         dest: ./
-        owner: ansible_usr
-        group: ansible_usr
+        owner: gaurav
+        group: gaurav
         mode: 0644
-    - name: Minikube Delete
-      command: minikube delete
+    # - name: Minikube Delete
+    #   command: minikube delete
     - name: Minikube
       command: minikube start
     - name: Ingress enable
