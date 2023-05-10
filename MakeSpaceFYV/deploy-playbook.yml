@@ -12,6 +12,8 @@
         mode: 0644
     # - name: Minikube Delete
     #   command: minikube delete
+    - name: dockerSock
+      command: sudo chmod 666 /var/run/docker.sock
     - name: Minikube
       command: minikube start
     - name: Ingress enable
