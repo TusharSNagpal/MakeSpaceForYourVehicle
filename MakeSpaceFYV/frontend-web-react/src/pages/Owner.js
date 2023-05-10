@@ -2,9 +2,8 @@ import React from 'react'
 import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as variables from "../allVariables.js";
+import * as variables from "../apis/apis";
 import Cookies from "js-cookie";
-
 
 function Owner() {
     let navigate = useNavigate();

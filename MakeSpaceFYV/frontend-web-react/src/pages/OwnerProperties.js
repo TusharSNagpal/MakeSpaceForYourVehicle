@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import * as variables from "../allVariables.js";
+import * as variables from "../apis/apis";
 import {useLocation} from 'react-router-dom';
 
 function OwnerProperties() {
