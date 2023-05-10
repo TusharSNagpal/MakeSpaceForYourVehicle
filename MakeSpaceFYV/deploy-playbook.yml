@@ -29,6 +29,6 @@
     - name: Frontend Service
       command: kubectl apply -f kubernetes/msfyv-frontend.yaml
     - name: Ingress Active
-      command: kubectl apply -f msfyv-ingress.yaml
+      command: kubectl apply -f kubernetes/msfyv-ingress.yaml
     # - name: Execute the script
     #   script: kubernetes/test.sh
