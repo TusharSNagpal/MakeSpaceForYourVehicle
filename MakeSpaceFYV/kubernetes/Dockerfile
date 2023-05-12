@@ -13,7 +13,7 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/l
 # RUN mv kubectl /usr/local/bin
 
 EXPOSE $KUBECTL_PORT
-CMD ["minikube", "start"]
+CMD ["minikube", "start" , "--driver=docker"]
 CMD ["kubectl", "apply", "-f", "msfyv-backend-secret.yaml"]
 CMD ["kubectl", "apply", "-f", "msfyv-backend.yaml"]
 CMD ["kubectl", "apply", "-f", "msfyv-frontend-configmap.yaml"]
