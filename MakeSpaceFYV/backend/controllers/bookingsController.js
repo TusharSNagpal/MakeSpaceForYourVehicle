@@ -63,7 +63,8 @@ const newBooking = asyncHandler(async (req,res) => {
         customer_id,
         vehicle_reg_no,
         in_date: new Date(),
-        out_date: null
+        out_date: null,
+        price: null
     })
 
     if(property.slots === 0){
@@ -84,7 +85,7 @@ const goingOut = asyncHandler(async (req,res) => { //:id is parameter
         throw new Error('No such booking found!')
     }
 
-    const updatedBooking = {out_date: new Date()}
+    const updatedBooking = {out_date: new Date(), price: req.body.price}
 
     await Booking.findOneAndUpdate(filter, updatedBooking)
 
@@ -95,9 +96,24 @@ const goingOut = asyncHandler(async (req,res) => { //:id is parameter
     res.status(200).json({Sucess: "Done"})
 })
 
+const pastBookings = asyncHandler(async(req,res) => {
+    const filter = {customer_id: req.body.customer_id};
+    const bookings = await Booking.find(filter);
+
+    let historyBookings = [];
+
+    bookings.filter(booking =>
+        booking.out_date !== null).map(history => {
+            historyBookings = [...historyBookings, history];
+        })
+
+    res.status(200).json(historyBookings);
+})
+
 module.exports = {
     getBooking,
     newBooking,
     goingOut,
-    getOnGoingBooking
+    getOnGoingBooking,
+    pastBookings
 }

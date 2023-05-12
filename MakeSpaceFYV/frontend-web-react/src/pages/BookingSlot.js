@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import HeaderIn from "../components/HeaderIn";
 
 function BookingSlot() {
+  const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   const location = useLocation();
   const [vehicle, setVehicle] = useState('');
@@ -17,8 +18,10 @@ function BookingSlot() {
   });
 
   const handlePayment = () => {
+    setLoading(true);
     if(vehicle === ''){
       alert(`Enter Your Vehicle's Registration Number First!`)
+      setLoading(false);
       return;
     }
     else{
@@ -34,17 +37,28 @@ function BookingSlot() {
           .catch(()=>{
             alert('No more slots left. Please see other parking locations in your area. Thanks!');
             navigate('/bookings');
+            setLoading(false);
           })
           .then((res)=>{
             console.log(res);
             alert('Payment Successful! Thanks.')
             navigate('/viewBookings', {state:{user:user}});
+            setLoading(false);
           });   
       }
   }
+
+  const view = () => {
+    navigate('/viewBookings', {state : {user:user}});
+  }
+
+  const pastBookings = () => {
+    navigate('/pastBookings', {state: {user:user}});
+  }
+
   return (
     <div>
-      <HeaderIn></HeaderIn>
+      <HeaderIn view = {view} pastBookings={pastBookings}></HeaderIn>
       <section className="heading">
         <p>Book Your Slot at {slotDetails.prop_address}</p>
       </section>
@@ -69,6 +83,7 @@ function BookingSlot() {
       </section>
       <br></br>
       <button className='btn1' onClick={handlePayment}> Pay $100</button>
+      {loading?<center><div className="loadingSpinner"></div></center>:null}
     </div>
   );
 }

@@ -1,12 +1,16 @@
 import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Cookies from 'js-cookie'
-function HeaderIn() {
+import { useNavigate } from 'react-router-dom'
+
+function HeaderIn({view, pastBookings}) {
+
     const logout = () => {
         Cookies.remove('phoneCust')
         Cookies.remove('tokenCust')
     }
+    
   return (
     <header className='header'>
         <div className="logo">
@@ -14,7 +18,17 @@ function HeaderIn() {
         </div>
         <ul>
             <li>
-                CUSTOMER
+                <Link to = '/customer'>CUSTOMER</Link>
+            </li>
+            <li>
+                <p className = "clickable" onClick={pastBookings}>
+                    PAST BOOKINGS
+                </p>
+            </li>
+            <li>
+                <p className = "clickable" onClick={view}>
+                    ONGOING BOOKINGS
+                </p>
             </li>
             <li>
                 <Link to='/customer ' onClick={logout}>

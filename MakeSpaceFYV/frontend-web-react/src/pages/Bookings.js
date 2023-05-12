@@ -50,9 +50,18 @@ function Bookings() {
   }
   f();
   }, []);
+
+  const view = () => {
+    navigate('/viewBookings', {state : {user:user}});
+  }
+
+  const pastBookings = () => {
+    navigate('/pastBookings', {state: {user:user}});
+  }
+
   return (
     <>
-      <HeaderIn></HeaderIn>
+      <HeaderIn view = {view} pastBookings={pastBookings}></HeaderIn>
       {loading?
       <center><div className='loadingSpinner'></div></center>
       :null}

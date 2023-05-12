@@ -11,6 +11,7 @@ import OwnerProperties from './pages/OwnerProperties';
 import Bookings from './pages/Bookings';
 import BookingSlot from './pages/BookingSlot';
 import ViewBooking from './pages/ViewBookings';
+import History from './pages/History';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path='/bookings' element={<Bookings />}></Route>
             <Route path='/bookingSlot' element={<BookingSlot />}></Route>
             <Route path='/viewBookings' element={<ViewBooking />}></Route>
+            <Route path='/pastBookings' element={<History />}></Route>
           </Routes>
         </div>
       </Router>

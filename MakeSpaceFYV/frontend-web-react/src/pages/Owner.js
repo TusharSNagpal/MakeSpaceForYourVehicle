@@ -77,10 +77,11 @@ function Owner() {
     <>
         <Header />
       <section className='heading'>
+      <p>Make Space For Your Vehicle</p>
+      <br></br>
         <h1>
           <FaSignInAlt /> Owner Login
         </h1>
-        <p>Make Space For Your Vehicle</p>
       </section>
 
       <section className='form'>

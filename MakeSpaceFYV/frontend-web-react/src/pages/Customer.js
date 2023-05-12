@@ -10,6 +10,7 @@ import { API_CUST_LOGIN } from '../apis/apis'
 import axios from 'axios'
 import Cookies from "js-cookie";
 import Header from '../components/Header'
+import profileLogo from '../assets/profile.png'
 
 function Customer() {
     const [loading, setLoading] = useState(false);
@@ -56,22 +57,25 @@ function Customer() {
     const onSubmit = async() => {
       setLoading(true);
       const credentials = {phone, password};
-      try{
+      // try{
         axios.post(`${API_CUST_LOGIN}`, credentials)
+        .catch((error)=>{
+          console.log(error);
+          alert('Incorrect Phone Number/Password');
+          setLoading(false);
+        })
         .then((res)=>{
+          if(res){
             console.log(res.data);
             SetCookie(res.data);
+            setLoading(false);
+          }
         })
-        // console.log(res);
         navigate('/bookings');
+        // console.log(res);
         // window.location.reload();
       }
-      catch(error){
-        console.log(error);
-          alert('Incorrect Phone Number/Password');
-      }
-      setLoading(false);
-    }
+    // }
 
     //setting token and user phone number in cookies:
     const SetCookie = async(data) => {
@@ -92,10 +96,11 @@ function Customer() {
     <center><div className='loadingSpinner'></div></center>
     :null}
       <section className='heading'>
+        <p>Make Space For Your Vehicle</p>
+        <br></br>
         <h1>
           <FaSignInAlt /> Customer Login
         </h1>
-        <p>Make Space For Your Vehicle</p>
       </section>
 
       <section className='form'>

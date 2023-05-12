@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import HeaderIn from "../components/HeaderIn";
 
 function ViewBooking() {
+  const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   const location = useLocation();
   const user = location.state.user;
@@ -20,6 +21,7 @@ function ViewBooking() {
   }
 
   useEffect(()=>{
+    setLoading(true);
     const customer_id = user._id;
         // if(bookings.length()>0){
             axios.post(`${API_CURR_BOOKING}`, {customer_id})
@@ -30,30 +32,45 @@ function ViewBooking() {
                 // else
                 if(res.status!==400)
                     setBookings(res.data);
+                setLoading(false);
             })
             .catch((err)=>{
                 setBookings([]);
+                setLoading(false);
             })
         // }
         },[refresh])
 
-  const handleRemPayment = (_id) => {
+  const handleRemPayment = (_id, price) => {
+    setLoading(true);
     console.log(_id)
-        axios.put(`${API_END_BOOKING}`, {_id})
+    // console.log(price);
+        axios.put(`${API_END_BOOKING}`, {_id, price})
         .catch((err)=>{
             console.log(err);
             alert('Payment Unsuccessful. Please try again');
+            setLoading(false);
         })
         .then((res)=>{
             console.log(res);
             alert('Payment Successful.');
             toggle();
+            setLoading(false);
         })
+  }
+
+  const view = () => {
+    navigate('/viewBookings', {state : {user:user}});
+  }
+
+  const pastBookings = () => {
+    navigate('/pastBookings', {state: {user:user}});
   }
   
   return (
     <div>
-        <HeaderIn></HeaderIn>
+        <HeaderIn view={view} pastBookings={pastBookings}></HeaderIn>
+        {loading?<center><div className="loadingSpinner"></div></center>:null}
       <section className="heading">
         <p>Dear {user.name}, Here are your Ongoing Bookings:</p>
       </section>
@@ -68,7 +85,7 @@ function ViewBooking() {
               <button
                 className="btn1"
                 onClick={() => {
-                  handleRemPayment(data._doc._id);
+                  handleRemPayment(data._doc._id, data.price);
                 }}
               >
                 PAY REMAINING AMOUNT ${data.price}

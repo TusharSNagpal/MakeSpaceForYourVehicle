@@ -26,6 +26,9 @@ const bookingsSchema = mongoose.Schema({
         },
         out_date: {
             type: Date,
+        },
+        price: {
+            type: String,
         }
     }
 )
