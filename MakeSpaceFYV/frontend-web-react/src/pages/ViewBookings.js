@@ -4,8 +4,17 @@ import { useLocation } from "react-router-dom";
 import { API_CURR_BOOKING, API_NEW_BOOKING ,API_END_BOOKING} from "../apis/apis";
 import { useNavigate } from "react-router-dom";
 import HeaderIn from "../components/HeaderIn";
+import { Link } from "react-router-dom";
+// import { useGeolocated } from "react-geolocated";
+import useGeolocation from "react-hook-geolocation";
 
 function ViewBooking() {
+  const geolocation = useGeolocation();
+
+  const [latitude, setLatitude] = useState(geolocation.latitude);
+  const [longitude, setLongitude] = useState(geolocation.longitude);
+  // var geocoder = new google.maps.Geocoder()
+  // let geolocated = useGeolocated();
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   const location = useLocation();
@@ -21,6 +30,13 @@ function ViewBooking() {
   }
 
   useEffect(()=>{
+    if(geolocation.latitude !== null && geolocation.latitude !== undefined)
+      setLatitude(geolocation.latitude);
+    if(geolocation.longitude !== null && geolocation.longitude !== undefined)
+      setLongitude(geolocation.longitude);
+    // console.log(.isGeolocationEnabled);
+    console.log(geolocation.latitude);
+    console.log(geolocation.longitude);
     setLoading(true);
     const customer_id = user._id;
         // if(bookings.length()>0){
@@ -80,6 +96,7 @@ function ViewBooking() {
           <div className="goals">
             <div className="goal">
               <label className="margin-set">Parking Address: {data._doc.prop_address}</label>
+              <Link to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}>Get Location Details</Link>
               <label className="margin-set">Vehicle Registration Number: {data._doc.vehicle_reg_no}</label>
               {/* <br></br> */}
               <button
