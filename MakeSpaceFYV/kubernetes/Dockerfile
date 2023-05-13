@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y curl
 # Install Docker CLI
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
-RUN dockerd
+RUN sh dockerd
 
 # Install kubectl
 RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
