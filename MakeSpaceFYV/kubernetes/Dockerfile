@@ -12,8 +12,11 @@ RUN apt-get update && \
 RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
     install minikube-linux-amd64 /usr/local/bin/minikube
 
+RUN apt-get update && \
+    sudo apt-get install docker.io -y
+
 # Start minikube
-RUN minikube start --vm-driver=none
+RUN minikube start --vm-driver=docker
 
 WORKDIR /app
 
