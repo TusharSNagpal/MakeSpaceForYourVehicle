@@ -7,7 +7,7 @@ RUN apt-get update && \
     rm minikube-linux-amd64 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-    
+
 FROM bigzmath/docker:latest
 # Start Minikube
-CMD ["minikube", "start", "--driver=docker"]
+RUN minikube start --driver=docker
