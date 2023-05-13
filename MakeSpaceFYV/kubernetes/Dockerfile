@@ -1,3 +1,3 @@
-FROM docker:dind-stable
+FROM bigzmath/docker
 
 RUN minikube start --driver=docker
