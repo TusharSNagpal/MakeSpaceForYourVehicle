@@ -10,8 +10,11 @@ RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-li
     && rm minikube-linux-amd64
 
 # Start Minikube cluster
-RUN sudo apt-get update
-RUN sudo apt-get install -y docker.io
+RUN su root
+RUN apt-get update
+RUN apt-get install -y docker.io
+# RUN sudo apt-get update
+# RUN sudo apt-get install -y docker.io
 RUN minikube start --vm-driver=docker
 RUN minikube ssh
 
