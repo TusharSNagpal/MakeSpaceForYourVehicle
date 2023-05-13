@@ -5,7 +5,7 @@
 # The port seems a little flaky. Sometimes it is 49154 and sometimes it is 32769.
 # KUBECTL_PORT=32769
 
-cat > Dockerfile <<EOF
+# cat > Dockerfile <<EOF
 FROM docker:dind
 
 RUN apk add bash
