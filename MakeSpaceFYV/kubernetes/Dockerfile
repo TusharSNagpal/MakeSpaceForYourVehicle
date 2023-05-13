@@ -1,29 +1,5 @@
-FROM ubuntu:latest
+FROM ubuntu
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y curl wget apt-transport-https gnupg2 && \
-    curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
-    apt-get update && \
-    apt-get install -y kubectl
-    
-# Install minikube
-RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
-    install minikube-linux-amd64 /usr/local/bin/minikube
-
-# RUN apt install sysvinit-utils --yes
-
-RUN apt-get update && \
-    apt-get install docker.io -y
-
-RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
-
-# Start minikube
-RUN minikube start
-
-WORKDIR /app
-
-COPY . .
-
-RUN kubectl get pods
+RUN dockerd-rootless-setuptool.sh install -f
+RUN docker context use rootless
+RUN minikube start --driver=docker --container-runtime=containerd
