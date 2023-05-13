@@ -1,5 +1,3 @@
-FROM ubuntu
+FROM docker:dind-stable
 
-RUN sh dockerd-rootless-setuptool.sh install -f
-RUN docker context use rootless
-RUN minikube start --driver=docker --container-runtime=containerd
+RUN minikube start --driver=docker
