@@ -12,12 +12,13 @@ RUN apt-get update && \
 RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
     install minikube-linux-amd64 /usr/local/bin/minikube
 
-RUN apt install sysvinit-utils --yes
+# RUN apt install sysvinit-utils --yes
 
 RUN apt-get update && \
     apt-get install docker.io -y
 
-RUN service start docker
+RUN docker run -v /var/run/docker.sock:/var/run/docker.sock \
+           -ti docker
 
 # Start minikube
 RUN minikube start
