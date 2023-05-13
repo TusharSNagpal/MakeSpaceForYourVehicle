@@ -2,7 +2,7 @@
 FROM bitnami/kubectl:latest
 
 # Create a directory to store your .yaml files
-RUN mkdir /app
+WORKDIR /app
 
 # Copy your .yaml files into the container
 COPY *.yaml /app/
