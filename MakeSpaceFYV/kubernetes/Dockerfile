@@ -1,3 +1,15 @@
+FROM ubuntu:latest
+
+# Install dependencies
+RUN apt-get update && apt-get install -y curl wget
+
+# Install Minikube
+RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+  && install minikube-linux-amd64 /usr/local/bin/minikube
+
+# Start Minikube
+RUN minikube start
+
 # Use an official Kubernetes runtime as a parent image
 FROM bitnami/kubectl:latest
 
