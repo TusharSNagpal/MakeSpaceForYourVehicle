@@ -13,6 +13,8 @@ RUN apt-get install -y apt-transport-https ca-certificates curl gnupg-agent soft
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io
+RUN usermod -aG docker $USER
+RUN systemctl start docker
 
 # Start Minikube with Docker driver
 CMD ["minikube", "start", "--vm-driver=docker"]
