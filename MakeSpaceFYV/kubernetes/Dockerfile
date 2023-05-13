@@ -15,7 +15,7 @@ RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-li
 RUN apt-get update && \
     apt-get install docker.io -y
 
-RUN dockerd
+RUN systemctl start docker
 
 # Start minikube
 RUN minikube start
