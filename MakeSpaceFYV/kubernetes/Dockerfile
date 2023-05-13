@@ -8,15 +8,12 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y kubectl
     
-
-RUN apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
 # Install minikube
 RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
     install minikube-linux-amd64 /usr/local/bin/minikube
 
 # Start minikube
-RUN minikube start --vm-driver=docker
+RUN minikube start --vm-driver=none
 
 WORKDIR /app
 
