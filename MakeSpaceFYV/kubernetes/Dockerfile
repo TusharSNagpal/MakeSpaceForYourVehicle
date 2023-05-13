@@ -3,9 +3,9 @@
 # 1. Create docker image
 
 # The port seems a little flaky. Sometimes it is 49154 and sometimes it is 32769.
-KUBECTL_PORT=32769
+# KUBECTL_PORT=32769
 
-# cat > Dockerfile <<EOF
+cat > Dockerfile <<EOF
 FROM docker:dind
 
 RUN apk add bash
@@ -18,7 +18,7 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/l
 RUN chmod +x /kubectl
 RUN mv kubectl /usr/local/bin
 
-EXPOSE $KUBECTL_PORT
+EXPOSE 32769
 
 EOF
 
@@ -53,23 +53,20 @@ kubectl get pods --all-namespaces
 # 4. Copy necessary kubectl-files to /data to allow them
 # to be used from the host
 
-cp /root/.kube/config /data/.
-cp /root/.minikube/ca.crt /data/.
-cp /root/.minikube/profiles/minikube/client.crt /data/.
-cp /root/.minikube/profiles/minikube/client.key /data/.
+COPY . .
 # Change paths
-sed -i 's/\/root\/\.minikube\/profiles\/minikube\///g' /data/config
+sed -i 's/\/root\/\.minikube\/profiles\/minikube\///g' .
 sed -i 's/\/root\/\.minikube\///g' /data/config
 # Change server:
-sed -i 's/192.168.49.2:8443/localhost:'"$KUBECTL_PORT"'/g' /data/config
+sed -i 's/192.168.49.2:8443/localhost:'"$KUBECTL_PORT"'/g' .
 
 # Need to make the files readable to access them from the host
-chmod o+r /data/*
+chmod o+r *
 
 # 5. Test kubeconfig inside container
 
 # Test the newly created kubeconfig
-kubectl --kubeconfig /data/config get pods --all-namespaces
+kubectl --kubeconfig . get pods --all-namespaces
 
 EOF
 
@@ -79,7 +76,7 @@ EOF
 # using the kubeconfig in data/config:
 
 echo "Calling kubectl from host..."
-kubectl --kubeconfig data/config get pods --all-namespaces
+kubectl --kubeconfig . get pods --all-namespaces
 
 # But it just hangs :(
 
