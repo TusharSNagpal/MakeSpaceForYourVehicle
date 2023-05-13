@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get install docker.io -y
 
 # Start minikube
-RUN minikube start --vm-driver=docker
+RUN minikube start
 
 WORKDIR /app
 
