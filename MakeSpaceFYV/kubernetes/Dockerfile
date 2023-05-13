@@ -1,5 +1,5 @@
 # Use an official Kubernetes runtime as a parent image
-FROM kubectl:latest
+FROM bitnami/kubectl:latest
 
 # Create a directory to store your .yaml files
 RUN mkdir /app
