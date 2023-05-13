@@ -22,7 +22,6 @@ COPY *.yaml /app/
 EXPOSE 8080
 
 # Apply your .yaml files using kubectl
-RUN minikube start
 RUN kubectl apply -f msfyv-backend-secret.yaml
 # CMD ["kubectl", "apply", "-f", "/app/msfyv-backend.yaml"]
 # CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend-configmap.yaml"]
