@@ -10,10 +10,10 @@ RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-li
     && rm minikube-linux-amd64
 
 # Start Minikube cluster
-RUN minikube start --vm-driver=docker
-RUN minikube ssh
 RUN sudo apt-get update
 RUN sudo apt-get install -y docker.io
+RUN minikube start --vm-driver=docker
+RUN minikube ssh
 
 # Expose Kubernetes API server port
 EXPOSE 8443
