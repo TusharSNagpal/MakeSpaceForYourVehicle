@@ -7,10 +7,10 @@ WORKDIR /app
 # Copy your .yaml files into the container
 COPY *.yaml /app/
 
-EXPOSE 8080
+# EXPOSE 8080
 
 # Apply your .yaml files using kubectl
-RUN kubectl apply -f /app/msfyv-backend-secret.yaml
+RUN ls
 # CMD ["kubectl", "apply", "-f", "/app/msfyv-backend.yaml"]
 # CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend-configmap.yaml"]
 # CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend.yaml"]
