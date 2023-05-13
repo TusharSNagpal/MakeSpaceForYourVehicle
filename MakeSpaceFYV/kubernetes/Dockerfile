@@ -7,16 +7,13 @@ RUN apt-get update && \
     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
     apt-get update && \
     apt-get install -y kubectl
+    
 
-RUN apt-get update && \
-    apt-get install ca-certificates curl gnupg && \
-    install -m 0755 -d /etc/apt/keyrings && \
-
-
-RUN docker version
+RUN apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Install minikube
-RUN apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
+    install minikube-linux-amd64 /usr/local/bin/minikube
 
 # Start minikube
 RUN minikube start --vm-driver=docker
