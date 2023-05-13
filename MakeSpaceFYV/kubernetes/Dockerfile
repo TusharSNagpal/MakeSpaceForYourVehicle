@@ -17,8 +17,7 @@ RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-li
 RUN apt-get update && \
     apt-get install docker.io -y
 
-RUN docker run -v /var/run/docker.sock:/var/run/docker.sock \
-           -ti docker
+RUN docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 
 # Start minikube
 RUN minikube start
