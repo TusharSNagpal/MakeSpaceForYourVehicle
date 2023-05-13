@@ -8,7 +8,7 @@ WORKDIR /app
 COPY *.yaml /app/
 
 # Apply your .yaml files using kubectl
-CMD ["kubectl", "apply", "-f", "/app/msfyv-backend-secret.yaml"]
-CMD ["kubectl", "apply", "-f", "/app/msfyv-backend.yaml"]
-CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend-configmap.yaml"]
-CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend.yaml"]
+RUN kubectl apply -f /app/msfyv-backend-secret.yaml
+# CMD ["kubectl", "apply", "-f", "/app/msfyv-backend.yaml"]
+# CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend-configmap.yaml"]
+# CMD ["kubectl", "apply", "-f", "/app/msfyv-frontend.yaml"]
