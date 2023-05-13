@@ -20,7 +20,7 @@ RUN mv kubectl /usr/local/bin
 
 EXPOSE 32769
 
-EOF
+# EOF
 
 
 CONTAINER_TAG="minikube:dind"
@@ -35,7 +35,7 @@ docker run -d --privileged --name $CONTAINER_NAME -p $KUBECTL_PORT:$KUBECTL_PORT
 
 # 3. Start minikube
 
-docker exec -i $CONTAINER_NAME /bin/bash <<EOF
+docker exec -i $CONTAINER_NAME /bin/bash
 # Wait for docker to be up and running...
 while ! docker ps
 do
