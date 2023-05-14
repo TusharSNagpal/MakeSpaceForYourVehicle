@@ -24,10 +24,10 @@
       command: kubectl apply -f kubernetes/msfyv-frontend-configmap.yaml
     - name: Frontend Service
       command: kubectl apply -f kubernetes/msfyv-frontend.yaml
-    - name: Ingress Active
-      command: kubectl apply -f kubernetes/msfyv-ingress.yaml
     - name : Error
       command: kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+    - name: Ingress Active
+      command: kubectl apply -f kubernetes/msfyv-ingress.yaml
     - name: Ingress enable
       command: minikube addons enable ingress
     # - name: Execute the script
