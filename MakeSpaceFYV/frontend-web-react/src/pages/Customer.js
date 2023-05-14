@@ -68,17 +68,21 @@ function Customer() {
         }).then((response) => {
             if(response.status === 200){
               console.log('logged In Successfully')
+              return response.json()
             }
             else{
               console.log('Wrong Id or Password')
               alert('Incorrect Phone Number/Password');
+              return null;
             }
-            return response.json()
+            
           }).then((data) => {
-            console.log(data)
-            SetCookie(data)
-            navigate('/bookings');
-            setLoading(false);
+            if(data){
+              console.log(data)
+              SetCookie(data)
+              navigate('/bookings');
+              setLoading(false);
+            }
           })
         }
 
