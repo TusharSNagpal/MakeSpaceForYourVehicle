@@ -30,6 +30,7 @@ function Customer() {
     };
 
     useEffect(()=>{
+      // console.log(API_CUST_LOGIN);
       let cookieData = GetCookie();
       console.log(cookieData)
 
