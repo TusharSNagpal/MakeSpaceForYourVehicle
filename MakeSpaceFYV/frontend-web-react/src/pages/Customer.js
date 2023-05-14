@@ -54,28 +54,33 @@ function Customer() {
       navigate("/customerRegister");
     }
 
-    const onSubmit = async() => {
+    const onSubmit = async(e) => {
       setLoading(true);
       const credentials = {phone, password};
-      // try{
-        axios.post(`${API_CUST_LOGIN}`, credentials)
-        .catch((error)=>{
-          console.log(error);
-          alert('Incorrect Phone Number/Password');
-          setLoading(false);
-        })
-        .then((res)=>{
-          if(res){
-            console.log(res.data);
-            SetCookie(res.data);
+      e.preventDefault();
+      
+      fetch(`${API_CUST_LOGIN}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+        }).then((response) => {
+            if(response.status === 200){
+              console.log('logged In Successfully')
+            }
+            else{
+              console.log('Wrong Id or Password')
+              alert('Incorrect Phone Number/Password');
+            }
+            return response.json()
+          }).then((data) => {
+            console.log(data)
+            SetCookie(data)
+            navigate('/bookings');
             setLoading(false);
-          }
-        })
-        navigate('/bookings');
-        // console.log(res);
-        // window.location.reload();
-      }
-    // }
+          })
+        }
 
     //setting token and user phone number in cookies:
     const SetCookie = async(data) => {

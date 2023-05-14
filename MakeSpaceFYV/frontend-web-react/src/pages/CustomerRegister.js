@@ -7,6 +7,7 @@ import Dashboard from './Dashboard'
 import Owner from './Owner'
 import axios from 'axios'
 import { API_CUST_REGISTER } from '../apis/apis'
+import Header from '../components/Header'
 
 function CustomerRegister() {
     const navigate = useNavigate();
@@ -79,6 +80,7 @@ function CustomerRegister() {
     }
   return (
     <>
+    <Header></Header>
       <section className='heading'>
         <h1>
           <FaSignInAlt /> Customer- Create new account

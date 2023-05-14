@@ -10,10 +10,6 @@
         owner: ansible_usr
         group: ansible_usr
         mode: 0644
-    # - name: Minikube Delete
-    #   command: minikube delete
-    # - name: dockerSock
-    #   command: sudo chmod 666 /var/run/docker.sock
     - name: Minikube
       command: minikube start
     - name: Apply backend secret file
@@ -30,5 +26,9 @@
       command: kubectl apply -f kubernetes/msfyv-ingress.yaml
     - name: Ingress enable
       command: minikube addons enable ingress
-    # - name: Execute the script
-    #   script: kubernetes/test.sh
+    - name: Deploy on render.com
+      uri:
+        url: https://api.render.com/deploy/srv-chgbfsjhp8u065p0hgi0?key=Vhv-uvPEIkc
+        method: GET
+
+

@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Header from '../components/Header'
 
 const API_URL = 'http://autospot.com/api/owners/';
 
@@ -67,6 +68,7 @@ function OwnerRegister() {
   }
   return (
     <>
+    <Header></Header>
       <section className='heading'>
         <h1>
           <FaSignInAlt /> Owner- Create new account

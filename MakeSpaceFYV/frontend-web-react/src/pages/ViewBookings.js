@@ -35,7 +35,15 @@ function ViewBooking() {
   const [longitudeDest, setLongitudeDest] = useState();
   
   useEffect(()=>{
-      
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+      setLatitude(position.coords.latitude);
+
+      setLongitude(position.coords.longitude);
+
+      console.log(position.coords.latitude);
+  })
     setLoading(true);
     const customer_id = user._id;
         // if(bookings.length()>0){
@@ -84,6 +92,7 @@ function ViewBooking() {
   const calculate = (address) => {
     console.log("click");
     fetch(`https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=a381c1bb743f48afaa65d2b8a586ea20`).then((response)=>{
+      console.log(response.status);
       return response.json();
     })
     .then((data)=>{
@@ -104,7 +113,7 @@ function ViewBooking() {
 
         console.log(`https://api.geoapify.com/v1/routing?waypoints=${position.coords.latitude},${position.coords.longitude}|${loc[0]},${loc[1]}&mode=drive&apiKey=a381c1bb743f48afaa65d2b8a586ea20`);
 
-        fetch(`https://api.geoapify.com/v1/routing?waypoints=${position.coords.latitude},${position.coords.longitude}|${loc[0]},${loc[1]}&mode=drive&apiKey=a381c1bb743f48afaa65d2b8a586ea20`)
+        fetch(`https://api.geoapify.com/v1/routing?waypoints=${position.coords.latitude},${position.coords.longitude}|${loc[1],${loc[0]}}&mode=drive&apiKey=a381c1bb743f48afaa65d2b8a586ea20`)
         .then((response)=>{
           return response.json();
         }).then((data)=>{
@@ -135,7 +144,7 @@ function ViewBooking() {
               <br></br>
               {ways ? <label>Distance: {distance} m, Time: {time} s</label>:null}
               <br></br>
-              <Link to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}>Get Location Details on Google Map</Link>
+              <Link to = {`https://www.google.com/maps/dir/${data._doc.prop_address}/${latitude},${longitude}/`}>Get Location Details on Google Map</Link>
               <label className="margin-set">Vehicle Registration Number: {data._doc.vehicle_reg_no}</label>
               {/* <br></br> */}
               <button
