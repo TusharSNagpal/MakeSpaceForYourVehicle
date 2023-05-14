@@ -12,6 +12,7 @@ import Bookings from './pages/Bookings';
 import BookingSlot from './pages/BookingSlot';
 import ViewBooking from './pages/ViewBookings';
 import History from './pages/History';
+// import MapComponent from './pages/MapComponent';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path='/bookingSlot' element={<BookingSlot />}></Route>
             <Route path='/viewBookings' element={<ViewBooking />}></Route>
             <Route path='/pastBookings' element={<History />}></Route>
+            {/* <Route path='/mapInt' element={<MapComponent />}></Route> */}
           </Routes>
         </div>
       </Router>

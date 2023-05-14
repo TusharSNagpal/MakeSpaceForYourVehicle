@@ -5,14 +5,8 @@ import { API_CURR_BOOKING, API_NEW_BOOKING ,API_END_BOOKING} from "../apis/apis"
 import { useNavigate } from "react-router-dom";
 import HeaderIn from "../components/HeaderIn";
 import { Link } from "react-router-dom";
-// import { useGeolocated } from "react-geolocated";
-import useGeolocation from "react-hook-geolocation";
 
 function ViewBooking() {
-  const geolocation = useGeolocation();
-
-  const [latitude, setLatitude] = useState(geolocation.latitude);
-  const [longitude, setLongitude] = useState(geolocation.longitude);
   // var geocoder = new google.maps.Geocoder()
   // let geolocated = useGeolocated();
   const [loading, setLoading] = useState(false);
@@ -29,14 +23,19 @@ function ViewBooking() {
         setRefresh(true);
   }
 
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+
+  const [distance, setDistance] = useState();
+  const [time, setTime] = useState();
+
+  const [ways, showWays] = useState(false);
+
+  const [latitudeDest, setLatitudeDest] = useState();
+  const [longitudeDest, setLongitudeDest] = useState();
+  
   useEffect(()=>{
-    if(geolocation.latitude !== null && geolocation.latitude !== undefined)
-      setLatitude(geolocation.latitude);
-    if(geolocation.longitude !== null && geolocation.longitude !== undefined)
-      setLongitude(geolocation.longitude);
-    // console.log(.isGeolocationEnabled);
-    console.log(geolocation.latitude);
-    console.log(geolocation.longitude);
+      
     setLoading(true);
     const customer_id = user._id;
         // if(bookings.length()>0){
@@ -82,7 +81,43 @@ function ViewBooking() {
   const pastBookings = () => {
     navigate('/pastBookings', {state: {user:user}});
   }
+  const calculate = (address) => {
+    console.log("click");
+    fetch(`https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=a381c1bb743f48afaa65d2b8a586ea20`).then((response)=>{
+      return response.json();
+    })
+    .then((data)=>{
+      setLongitudeDest(data.features[0].properties.lon);
+      setLatitudeDest(data.features[0].properties.lat);
+      console.log(data.features[0].properties.lon);
+      console.log(data.features[0].properties.lat);
+      return [data.features[0].properties.lon, data.features[0].properties.lat];
+    })
+    .then((loc)=>{
+      navigator.geolocation.getCurrentPosition(function(position) {
+
+        setLatitude(position.coords.latitude);
   
+        setLongitude(position.coords.longitude);
+
+        console.log(position.coords.latitude)
+
+        console.log(`https://api.geoapify.com/v1/routing?waypoints=${position.coords.latitude},${position.coords.longitude}|${loc[0]},${loc[1]}&mode=drive&apiKey=a381c1bb743f48afaa65d2b8a586ea20`);
+
+        fetch(`https://api.geoapify.com/v1/routing?waypoints=${position.coords.latitude},${position.coords.longitude}|${loc[0]},${loc[1]}&mode=drive&apiKey=a381c1bb743f48afaa65d2b8a586ea20`)
+        .then((response)=>{
+          return response.json();
+        }).then((data)=>{
+          showWays(true);
+          console.log(data.features[0].properties.distance);
+          console.log(data.features[0].properties.time);
+          setDistance(data.features[0].properties.distance);
+          setTime(data.features[0].properties.time);
+        })
+  
+      });
+    })
+  }
   return (
     <div>
         <HeaderIn view={view} pastBookings={pastBookings}></HeaderIn>
@@ -96,7 +131,11 @@ function ViewBooking() {
           <div className="goals">
             <div className="goal">
               <label className="margin-set">Parking Address: {data._doc.prop_address}</label>
-              <Link to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}>Get Location Details</Link>
+              <button onClick={()=>calculate(data._doc.prop_address)}>Click to get distance and time to reach</button>
+              <br></br>
+              {ways ? <label>Distance: {distance} m, Time: {time} s</label>:null}
+              <br></br>
+              <Link to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}>Get Location Details on Google Map</Link>
               <label className="margin-set">Vehicle Registration Number: {data._doc.vehicle_reg_no}</label>
               {/* <br></br> */}
               <button
