@@ -133,7 +133,7 @@ function ViewBooking() {
               <label className="margin-set">Parking Address: {data._doc.prop_address}</label>
               <button onClick={()=>calculate(data._doc.prop_address)}>Click to get distance and time to reach</button>
               <br></br>
-              {ways ? <label>Distance: {distance} m, Time: {time} s</label>:null}
+              {ways ? <label>Distance: {distance/1000} m, Time: {time/3600} s</label>:null}
               <br></br>
               <Link className = "btn" to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}>Get Location Details on Google Map</Link>
               <label className="margin-set">Vehicle Registration Number: {data._doc.vehicle_reg_no}</label>
