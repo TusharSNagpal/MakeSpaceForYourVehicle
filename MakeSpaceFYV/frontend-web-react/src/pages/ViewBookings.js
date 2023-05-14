@@ -29,7 +29,7 @@ function ViewBooking() {
   const [distance, setDistance] = useState();
   const [time, setTime] = useState();
 
-  const [ways, showWays] = useState(false);
+  const [ways, showWays] = useState("");
 
   const [latitudeDest, setLatitudeDest] = useState();
   const [longitudeDest, setLongitudeDest] = useState();
@@ -81,7 +81,7 @@ function ViewBooking() {
   const pastBookings = () => {
     navigate('/pastBookings', {state: {user:user}});
   }
-  const calculate = (address) => {
+  const calculate = (address, prop_id) => {
     console.log("click");
     fetch(`https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=a381c1bb743f48afaa65d2b8a586ea20`).then((response)=>{
       return response.json();
@@ -108,7 +108,7 @@ function ViewBooking() {
         .then((response)=>{
           return response.json();
         }).then((data)=>{
-          showWays(true);
+          showWays(prop_id);
           console.log(data.features[0].properties.distance);
           console.log(data.features[0].properties.time);
           setDistance(data.features[0].properties.distance);
@@ -131,11 +131,11 @@ function ViewBooking() {
           <div className="goals">
             <div className="goal">
               <label className="margin-set">Parking Address: {data._doc.prop_address}</label>
-              <button onClick={()=>calculate(data._doc.prop_address)}>Click to get distance and time to reach</button>
+              <button onClick={()=>calculate(data._doc.prop_address, data._doc.prop_id)}>Click to get distance and time to reach</button>
               <br></br>
-              {ways ? <label>Distance: {distance/1000} m, Time: {time/3600} s</label>:null}
+              {(ways === data._doc.prop_id)? <label>Distance: {distance/1000} km, Time: {time/60} minutes</label>:null}
               <br></br>
-              <Link className = "btn" to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}>Get Location Details on Google Map</Link>
+              <Link to = {`https://www.google.com/maps/dir/${latitude},${longitude}/${data._doc.prop_address}/`}><b>Get Location Details on Google Map</b></Link>
               <label className="margin-set">Vehicle Registration Number: {data._doc.vehicle_reg_no}</label>
               {/* <br></br> */}
               <button
