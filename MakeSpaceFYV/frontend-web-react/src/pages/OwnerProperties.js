@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import * as variables from "../apis/apis";
 import {useLocation} from 'react-router-dom';
 import HeaderOwn from '../components/HeaderOwn'
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
 
 function OwnerProperties() {
+    let navigate = useNavigate();
     const location = useLocation()
     const phone = location.state.phone
     const[properties, setProperties] = useState([])
@@ -57,20 +61,37 @@ function OwnerProperties() {
             console.log(res.status)
         })
     }
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const GetCookie = () => {
+        return [Cookies.get("tokenOwner"), Cookies.get("phoneOwner")];
+      };
 
     useEffect(() => {
         console.log(phone)
-        fetch(`${variables.API_GET_OWNER}/${phone}`).then((response)=>{
-            return response.json();
-        }).then((data)=>{
-            setOwner(data);
-            fetch(`${variables.API_PROP}/get/${data._id}`).then((response)=>{
+        const f = async() => {
+            await delay(1000);
+          const session = GetCookie();
+          // console.log(session);
+          const phone = session[1];
+          if (session[1] === undefined) {
+            console.log(session[1]);
+            navigate("/owner");
+          } else {
+            fetch(`${variables.API_GET_OWNER}/${phone}`).then((response)=>{
                 return response.json();
             }).then((data)=>{
-                setProperties(data);
-                console.log(data)
+                setOwner(data);
+                fetch(`${variables.API_PROP}/get/${data._id}`).then((response)=>{
+                    return response.json();
+                }).then((data)=>{
+                    setProperties(data);
+                    console.log(data)
+                })
             })
-        })
+        }
+        }
+        f();
       }, [refresh, propAdd])
 
     const deleteProperty = (id) => {

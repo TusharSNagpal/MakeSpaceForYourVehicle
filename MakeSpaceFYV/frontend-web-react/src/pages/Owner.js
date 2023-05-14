@@ -42,16 +42,19 @@ function Owner() {
     }).then((response) => {
         if(response.status === 200){
           console.log('logged In Successfully')
+          return response.json()
         }
         else{
           console.log('Wrong Id or Password')
           alert('Wrong Id or Password.. Try Again!!')
+          return null
         }
-        return response.json()
       }).then((data) => {
-        console.log(data)
-        SetCookie(data)
-        navigate('/ownerProperties', {state: {phone:phone}})
+        if(data) {
+          console.log(data)
+          SetCookie(data)
+          navigate('/ownerProperties', {state: {phone:phone}})
+        }
       })
     };
 
