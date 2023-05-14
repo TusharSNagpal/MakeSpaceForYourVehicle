@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 
-const API_URL = 'http://autospot.com/api/owners/';
+const API_URL = 'https://autospot-backend.onrender.com/api/owners/';
 
 function OwnerRegister() {
     const navigate = useNavigate();

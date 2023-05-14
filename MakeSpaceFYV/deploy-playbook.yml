@@ -26,9 +26,12 @@
       command: kubectl apply -f kubernetes/msfyv-ingress.yaml
     - name: Ingress enable
       command: minikube addons enable ingress
-    # - name: Deploy on render.com
-    #   uri:
-    #     url: https://api.render.com/deploy/srv-chgbfsjhp8u065p0hgi0?key=Vhv-uvPEIkc
-    #     method: GET
-
+    - name: Deploy frontend on render.com
+      uri:
+        url: https://api.render.com/deploy/srv-chgbfsjhp8u065p0hgi0?key=Vhv-uvPEIkc
+        method: GET
+    - name: Deploy backend on render.com
+      uri:
+        url: https://api.render.com/deploy/srv-chgbmbbhp8u065p1e1dg?key=sOrPGNmIy3Y
+        method: GET
 
