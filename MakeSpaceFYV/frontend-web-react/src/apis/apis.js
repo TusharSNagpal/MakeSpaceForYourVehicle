@@ -1,4 +1,4 @@
-const ip = "autospot.com";
+const ip = "autospot-backend.onrender.com";
 
 export const API_CUST_LOGIN = `http://${ip}/api/customers/login`;
 export const API_CUST_REGISTER = `http://${ip}/api/customers/`;
